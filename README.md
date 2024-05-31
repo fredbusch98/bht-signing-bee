@@ -11,6 +11,13 @@ pip install opencv-python
 pip install torch
 ```
 
+Navigate to the 'src' folder and start the application
+```bat
+cd src
+python handtracking.py
+```
+
+
 ### Exposé - Signing Bee
 Frederik Busch, Marc Waclaw, Lennart Reinke
 
