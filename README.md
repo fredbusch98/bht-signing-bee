@@ -9,8 +9,8 @@ Zum Trainieren unseres CNNs verwenden wir den Sign Language MNIST Datensatz. Die
 Wir werden das Projekt mit Hilfe von OpenCV, MediaPipe, PyTorch und tkinter umsetzen. OpenCV verwenden wir für die Bildverarbeitung, MediaPipe liefert nützliche Funktionen zur Hand-Detection, PyTorch nutzen wir zur Umsetzung unseres CNNs und tkinter für die Erstellung der Benutzeroberfläche. [2] [3] [4] [5]
 
 Resources: 
-[1] Sign Language MNIST - https://www.kaggle.com/datasets/datamunge/sign-language-mnist
-[2] OpenCV - https://opencv.org/
-[3] MediaPipe - https://mediapipe.readthedocs.io/en/latest/solutions/hands.html
-[4] PyTorch - https://pytorch.org/docs/stable/index.html 
-[5] tkinter - https://docs.python.org/3/library/tkinter.html
+* [1] Sign Language MNIST - https://www.kaggle.com/datasets/datamunge/sign-language-mnist
+* [2] OpenCV - https://opencv.org/
+* [3] MediaPipe - https://mediapipe.readthedocs.io/en/latest/solutions/hands.html
+* [4] PyTorch - https://pytorch.org/docs/stable/index.html 
+* [5] tkinter - https://docs.python.org/3/library/tkinter.html
