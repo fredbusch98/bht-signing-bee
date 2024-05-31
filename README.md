@@ -1,5 +1,14 @@
 # Signing Bee
 
+## Getting Started
+
+Install the following python packages: mediapipe, opencv-python, torch
+
+``sh
+pip install mediapipe
+pip install opencv-python
+pip install torch
+
 ### Exposé - Signing Bee
 Frederik Busch, Marc Waclaw, Lennart Reinke
 
