@@ -18,11 +18,9 @@ python handtracking.py
 ```
 
 Application shortcuts
-```bat
-z   : quits the application
-j   : toggles visualizing the bounding box and hand-landmarks
-esc : toggles full screen
-```
+'z'   - quits the application
+'j'   - toggles visualizing the hands bounding box and hand-landmarks
+'esc' - toggles full screen
 
 ## How to use (temporarily until CNN is implemented):
 The application generates random words. The user needs to input them via keyboard. This will be changed to input via the amrican sign language alphabet using gesture detection with a CNN.
