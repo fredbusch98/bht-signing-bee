@@ -1,1 +1,1 @@
-# bht-signing-bee
+# Signing Bee
