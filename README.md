@@ -28,7 +28,7 @@ Application shortcuts
 The application generates random words. The user needs to input them via keyboard. This will be changed to input via the amrican sign language alphabet using gesture detection with a CNN.
 
 
-### Exposé - Signing Bee
+## Exposé - Signing Bee
 Frederik Busch, Marc Waclaw, Lennart Reinke
 
 Unsere Idee ist es, ein kleines Buchstabierspiel (engl. spelling bee) zu entwickeln. Buchstabieren jedoch nicht im herkömmlichen Sinne mit der Stimme oder per Tastatureingabe, sondern mittels Sign Language.
