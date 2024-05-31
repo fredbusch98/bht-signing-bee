@@ -25,7 +25,7 @@ Application shortcuts
 ```
 
 ## How to use (temporarily until CNN is implemented):
-The application generates random words. The user needs to input them via keyboard. This will be changed to input via the amrican sign language alphabet using gesture detection with a CNN.
+The application generates random words. The user needs to input them via keyboard. This will be changed to input via the american sign language alphabet using gesture detection with a CNN.
 
 
 ## Exposé - Signing Bee
