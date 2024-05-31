@@ -2,10 +2,11 @@
 
 ## Getting Started
 
-Install the following python packages: mediapipe, opencv-python, torch
+Install the following python packages: mediapipe, pillow, opencv-python, torch
 
 ```bat
 pip install mediapipe
+pip install pillow
 pip install opencv-python
 pip install torch
 ```
