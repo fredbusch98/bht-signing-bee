@@ -4,10 +4,11 @@
 
 Install the following python packages: mediapipe, opencv-python, torch
 
-``sh
+```bat
 pip install mediapipe
 pip install opencv-python
 pip install torch
+```
 
 ### Exposé - Signing Bee
 Frederik Busch, Marc Waclaw, Lennart Reinke
