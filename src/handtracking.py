@@ -56,6 +56,8 @@ def extract_and_resize_subimage(image, bbox, size=(28, 28)):
     subimage = image[ymin:ymax, xmin:xmax]
     resized_subimage = cv2.resize(subimage, size)
     resized_and_gray_subimage = cv2.cvtColor(resized_subimage, cv2.COLOR_BGR2GRAY)
+    # We probably need to flatten the image here to a 1D array to pass it to the CNN
+    #resized_and_gray_subimage = resized_and_gray_subimage.flatten()
     return resized_and_gray_subimage
 
 class HandTrackingApp:
