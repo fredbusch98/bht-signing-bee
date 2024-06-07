@@ -51,14 +51,17 @@ def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, paddi
     new_ymax = min(center_y + side_length // 2 + padding, image_shape[0])
     return new_xmin, new_ymin, new_xmax, new_ymax
 
-def extract_and_resize_subimage(image, bbox, size=(28, 28)):
+def extract_and_preprocess_hand_subimage(image, bbox, size=(28, 28)):
     xmin, ymin, xmax, ymax = bbox
-    subimage = image[ymin:ymax, xmin:xmax]
-    resized_subimage = cv2.resize(subimage, size)
-    resized_and_gray_subimage = cv2.cvtColor(resized_subimage, cv2.COLOR_BGR2GRAY)
-    # We probably need to flatten the image here to a 1D array to pass it to the CNN
-    #resized_and_gray_subimage = resized_and_gray_subimage.flatten()
-    return resized_and_gray_subimage
+    hand_subimage = image[ymin:ymax, xmin:xmax]
+    hand_subimage = cv2.resize(hand_subimage, size)
+    hand_subimage = cv2.cvtColor(hand_subimage, cv2.COLOR_BGR2GRAY)
+    # We need to flatten the image into a 1D array
+    hand_subimage = hand_subimage.flatten()
+    # we also need to transpose it to get it in the right format before passing it to the CNN
+    preprocessed_hand_subimage = hand_subimage.T
+
+    return preprocessed_hand_subimage
 
 class HandTrackingApp:
     def __init__(self, root):
@@ -141,7 +144,7 @@ class HandTrackingApp:
                                                   mp_drawing_styles.get_default_hand_connections_style())
                     bbox = get_quadratic_bbox_coordinates_with_padding(hand_landmarks, frame.shape[:2])
 
-                    hand_subimage = extract_and_resize_subimage(frame, bbox)
+                    hand_subimage = extract_and_preprocess_hand_subimage(frame, bbox)
                     # Pass the hand_subimage to the CNN to detect the sign language gesture!
                     recognized_gesture = process_gesture(hand_subimage)
                     self.process_recognized_gesture(recognized_gesture)
