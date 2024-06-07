@@ -53,13 +53,13 @@ def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, paddi
 
 def extract_and_preprocess_hand_subimage(image, bbox, size=(28, 28)):
     xmin, ymin, xmax, ymax = bbox
-    hand_subimage = image[ymin:ymax, xmin:xmax]
-    hand_subimage = cv2.resize(hand_subimage, size)
-    hand_subimage = cv2.cvtColor(hand_subimage, cv2.COLOR_BGR2GRAY)
+    preprocessed_hand_subimage = image[ymin:ymax, xmin:xmax]
+    preprocessed_hand_subimage = cv2.resize(preprocessed_hand_subimage, size)
+    preprocessed_hand_subimage = cv2.cvtColor(preprocessed_hand_subimage, cv2.COLOR_BGR2GRAY)
     # We need to flatten the image into a 1D array
-    hand_subimage = hand_subimage.flatten()
+    preprocessed_hand_subimage = preprocessed_hand_subimage.flatten()
     # we also need to transpose it to get it in the right format before passing it to the CNN
-    preprocessed_hand_subimage = hand_subimage.T
+    preprocessed_hand_subimage = preprocessed_hand_subimage.T
 
     return preprocessed_hand_subimage
 
