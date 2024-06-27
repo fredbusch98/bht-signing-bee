@@ -4,7 +4,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import os
 from word_generator import load_words, generate_words
-
+# Source Code inspired by: https://mlhive.com/2022/02/hand-landmarks-detection-using-mediapipe-in-python
 # Sign Language Alphabet images source: https://www.flaticon.com/search?author_id=1686&style_id=&type=standard&word=sign+language Letter icons created by Valeria - Flaticon
 images_directory = "../resources/help-images/"
 
@@ -18,7 +18,7 @@ mp_hands = mp.solutions.hands
 def process_gesture(hand_subimage):
     # Process the hand_subimage with the CNN and return the recognized letter as a string!
     # recognized_gesture = cnn.process(hand_subimage)
-    recognized_gesture = "recognized gesture letter" # hardcoded now for testing purposes until CNN is implemented
+    recognized_gesture = "recognized gesture letter" # hardcoded now for testing purposes until CNN model is implemented/integrated
     return recognized_gesture
 
 def get_current_help_img(current_letter):
@@ -56,10 +56,9 @@ def extract_and_preprocess_hand_subimage(image, bbox, size=(28, 28)):
     preprocessed_hand_subimage = image[ymin:ymax, xmin:xmax]
     preprocessed_hand_subimage = cv2.resize(preprocessed_hand_subimage, size)
     preprocessed_hand_subimage = cv2.cvtColor(preprocessed_hand_subimage, cv2.COLOR_BGR2GRAY)
-    # We need to flatten the image into a 1D array
-    preprocessed_hand_subimage = preprocessed_hand_subimage.flatten()
-    # we also need to transpose it to get it in the right format before passing it to the CNN
-    preprocessed_hand_subimage = preprocessed_hand_subimage.T
+    # Do we need to flatten and transpose the image before passing it to the CNN?
+    # preprocessed_hand_subimage = preprocessed_hand_subimage.flatten()
+    # preprocessed_hand_subimage = preprocessed_hand_subimage.T
 
     return preprocessed_hand_subimage
 

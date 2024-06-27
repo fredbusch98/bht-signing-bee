@@ -4,7 +4,7 @@ def load_words(filename):
     with open(filename, 'r') as file:
         return file.read().splitlines()
 
-def generate_real_word(words):
+def get_random_word(words):
     word = random.choice(words)
     return word
 
@@ -14,6 +14,6 @@ def generate_words(num_words, words):
 
     generated_words = set()
     while len(generated_words) < num_words:
-        word = generate_real_word(words)
+        word = get_random_word(words)
         generated_words.add(word)
     return list(generated_words)
