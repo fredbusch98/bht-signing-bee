@@ -17,6 +17,13 @@ random_words = generate_words(175, word_list)
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
+count = 0
+
+gestures = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y'
+]
 
 class SignLanguageCNN(nn.Module):
     def __init__(self):
@@ -40,13 +47,16 @@ class SignLanguageCNN(nn.Module):
         return x
 
 model = SignLanguageCNN()
-model.load_state_dict(torch.load('../resources/models/model_1.pt'))
+model.load_state_dict(torch.load('../resources/models/model_1.pt', map_location=torch.device('cpu')))
+model.eval()
 
 def process_gesture(hand_subimage):
-    # Process the hand_subimage with the CNN and return the recognized letter as a string!
-    # recognized_gesture = cnn.process(hand_subimage)
-    recognized_gesture = "recognized gesture letter" # hardcoded now for testing purposes until CNN model is implemented/integrated
-    return recognized_gesture
+    hand_subimage = torch.tensor(hand_subimage, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+    with torch.no_grad():
+        logits = model(hand_subimage)
+        probabilities = F.softmax(logits, dim=1)
+        predicted_class = probabilities.argmax(dim=1).item()
+    return gestures[predicted_class]
 
 def get_current_help_img(current_letter):
     image_path = os.path.join(images_directory, "letter-" + current_letter + ".png")
@@ -62,7 +72,7 @@ def get_current_help_img(current_letter):
         print("Image not found for letter", current_letter)
         return None 
 
-def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, padding=30):
+def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, padding=10):
     all_x, all_y = [], []
     for hnd in mp_hands.HandLandmark:
         all_x.append(int(handLandmark.landmark[hnd].x * image_shape[1]))
@@ -83,14 +93,12 @@ def extract_and_preprocess_hand_subimage(image, bbox, size=(28, 28)):
     preprocessed_hand_subimage = image[ymin:ymax, xmin:xmax]
     preprocessed_hand_subimage = cv2.resize(preprocessed_hand_subimage, size)
     preprocessed_hand_subimage = cv2.cvtColor(preprocessed_hand_subimage, cv2.COLOR_BGR2GRAY)
-    # Do we need to flatten and transpose the image before passing it to the CNN?
-    # preprocessed_hand_subimage = preprocessed_hand_subimage.flatten()
-    # preprocessed_hand_subimage = preprocessed_hand_subimage.T
-
+    preprocessed_hand_subimage = preprocessed_hand_subimage.reshape(28, 28)
     return preprocessed_hand_subimage
 
 class HandTrackingApp:
     def __init__(self, root):
+        self.count = 0
         self.root = root
         self.root.title("Sign Language Spelling Bee")
 
@@ -154,6 +162,7 @@ class HandTrackingApp:
         self.update()
 
     def update(self):
+        self.count = self.count + 1
         success, frame = self.cap.read()
         if success:
             # Flip the frame image horizontally
@@ -171,6 +180,7 @@ class HandTrackingApp:
                     bbox = get_quadratic_bbox_coordinates_with_padding(hand_landmarks, frame.shape[:2])
 
                     hand_subimage = extract_and_preprocess_hand_subimage(frame, bbox)
+                    cv2.imwrite(f"hand_subimage-{count}.jpg", hand_subimage)
                     # Pass the hand_subimage to the CNN to detect the sign language gesture!
                     recognized_gesture = process_gesture(hand_subimage)
                     self.process_recognized_gesture(recognized_gesture)
