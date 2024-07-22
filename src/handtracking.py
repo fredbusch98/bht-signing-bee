@@ -1,4 +1,7 @@
 import cv2
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 import mediapipe as mp
 import tkinter as tk
 from PIL import Image, ImageTk
@@ -14,6 +17,30 @@ random_words = generate_words(175, word_list)
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
+
+class SignLanguageCNN(nn.Module):
+    def __init__(self):
+        super(SignLanguageCNN, self).__init__()
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
+        self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
+        self.fc1 = nn.Linear(128 * 3 * 3, 256)
+        self.fc2 = nn.Linear(256, 128)
+        self.fc3 = nn.Linear(128, 25)  # 25 classes
+
+    def forward(self, x):
+        x = self.pool(F.relu(self.conv1(x)))
+        x = self.pool(F.relu(self.conv2(x)))
+        x = self.pool(F.relu(self.conv3(x)))
+        x = x.view(-1, 128 * 3 * 3)
+        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
+        x = self.fc3(x)
+        return x
+
+model = SignLanguageCNN()
+model.load_state_dict(torch.load('../resources/models/model_1.pt'))
 
 def process_gesture(hand_subimage):
     # Process the hand_subimage with the CNN and return the recognized letter as a string!
