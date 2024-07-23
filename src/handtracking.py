@@ -12,12 +12,11 @@ from word_generator import load_words, generate_words
 images_directory = "../resources/help-images/"
 
 word_list = load_words('../resources/words.txt')
-random_words = generate_words(175, word_list)
+random_words = generate_words(24, word_list)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_hands = mp.solutions.hands
-count = 0
 
 gestures = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
@@ -98,7 +97,7 @@ def extract_and_preprocess_hand_subimage(image, bbox, size=(28, 28)):
 
 class HandTrackingApp:
     def __init__(self, root):
-        self.count = 0
+        self.canProcess = True
         self.root = root
         self.root.title("Sign Language Spelling Bee")
 
@@ -158,11 +157,10 @@ class HandTrackingApp:
         
         self.current_word_letter_index = 0  # Variable to keep track of the current index in the word
         self.root.bind('<Key>', self.process_key_input)  # Bind keyboard events to process user input
-
+        
         self.update()
 
     def update(self):
-        self.count = self.count + 1
         success, frame = self.cap.read()
         if success:
             # Flip the frame image horizontally
@@ -180,10 +178,11 @@ class HandTrackingApp:
                     bbox = get_quadratic_bbox_coordinates_with_padding(hand_landmarks, frame.shape[:2])
 
                     hand_subimage = extract_and_preprocess_hand_subimage(frame, bbox)
-                    cv2.imwrite(f"hand_subimage-{count}.jpg", hand_subimage)
+                    # cv2.imwrite(f"hand_subimage-{self.count}.jpg", hand_subimage)
                     # Pass the hand_subimage to the CNN to detect the sign language gesture!
-                    recognized_gesture = process_gesture(hand_subimage)
-                    self.process_recognized_gesture(recognized_gesture)
+                    if(self.canProcess):
+                        recognized_gesture = process_gesture(hand_subimage)
+                        self.process_recognized_gesture(recognized_gesture)
 
                     # Draw bounding box on the frame
                     if self.verbose:
@@ -211,47 +210,43 @@ class HandTrackingApp:
         self.verbose = not self.verbose 
 
     def process_recognized_gesture(self, recognized_gesture):
-        # TODO: Implement similar to process_key_input!
-        print(f"Processing: '{recognized_gesture}'")
-
-    def process_key_input(self, event):
-        if event.char.isalpha() and self.current_word_letter_index < len(self.current_word):
+        if recognized_gesture.isalpha() and self.current_word_letter_index < len(self.current_word):
             current_letter = self.current_word[self.current_word_letter_index]
 
-            # Check if the input letter matches the corresponding letter in the current word
-            if event.char.upper() == current_letter.upper():
-                # Replace the underscore with the correct letter in the placeholder
+            if recognized_gesture.upper() == current_letter.upper():
                 placeholder_text = self.current_word_placeholder.cget("text")
                 new_placeholder_text = placeholder_text[:self.current_word_letter_index] + current_letter + placeholder_text[self.current_word_letter_index + 2:]
                 self.current_word_placeholder.config(text=new_placeholder_text)
 
-                # Move to the next index in the word
-                self.current_word_letter_index += 1
-                if self.current_word_letter_index < len(self.current_word):
-                    next_letter = self.current_word[self.current_word_letter_index]
-                    next_help_img = get_current_help_img(next_letter)
-                    next_help_img = cv2.resize(next_help_img, (400, 400))
-
-                    # Convert the next help image to a format suitable for Tkinter
-                    next_help_img_rgb = cv2.cvtColor(next_help_img, cv2.COLOR_BGR2RGB)
-                    next_help_img_pil = Image.fromarray(next_help_img_rgb)
-                    next_help_img_tk = ImageTk.PhotoImage(image=next_help_img_pil)
-
-                    # Update the help label with the new image
-                    self.help_label.config(image=next_help_img_tk)
-                    self.help_label.image = next_help_img_tk
-
-                # Update last input label
                 self.last_input_label.config(text=current_letter, fg="green")
-            else:
-                # Update last input label
-                self.last_input_label.config(text=event.char.upper(), fg="red")
+                self.canProcess = False
+                self.root.after(2000, self.clear_last_input_and_proceed)
 
-            # Check if the word is completed
-            if self.current_word_letter_index == len(self.current_word):
-                self.last_input_label.config(text="")
-                self.current_word_letter_index = 0  # Reset index for the next word
-                self.set_new_current_word()
+            else:
+                self.last_input_label.config(text=recognized_gesture.upper(), fg="red")
+
+    def clear_last_input_and_proceed(self):
+        self.last_input_label.config(text="", bg="black")
+        self.current_word_letter_index += 1
+        if self.current_word_letter_index < len(self.current_word):
+            next_letter = self.current_word[self.current_word_letter_index]
+            next_help_img = get_current_help_img(next_letter)
+            next_help_img = cv2.resize(next_help_img, (400, 400))
+
+            next_help_img_rgb = cv2.cvtColor(next_help_img, cv2.COLOR_BGR2RGB)
+            next_help_img_pil = Image.fromarray(next_help_img_rgb)
+            next_help_img_tk = ImageTk.PhotoImage(image=next_help_img_pil)
+
+            self.help_label.config(image=next_help_img_tk)
+            self.help_label.image = next_help_img_tk
+
+        if self.current_word_letter_index == len(self.current_word):
+            self.current_word_letter_index = 0
+            self.set_new_current_word()
+        self.canProcess = True
+
+    def process_key_input(self, event):
+        self.process_recognized_gesture(event.char)
 
     def set_new_current_word(self):
         # Update to the next word in the list
