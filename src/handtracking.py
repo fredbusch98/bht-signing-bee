@@ -12,7 +12,7 @@ from word_generator import load_words, generate_words
 images_directory = "../resources/help-images/"
 
 word_list = load_words('../resources/words.txt')
-random_words = generate_words(24, word_list)
+#random_words = generate_words(20, word_list)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -100,6 +100,7 @@ class HandTrackingApp:
         self.canProcess = True
         self.root = root
         self.root.title("Sign Language Spelling Bee")
+        self.count = 0
 
         # Set the initial window state
         self.is_fullscreen = False
@@ -121,7 +122,7 @@ class HandTrackingApp:
         self.canvas.pack()
 
         self.current_word_index = 0
-        self.current_word = random_words[self.current_word_index]
+        self.current_word = word_list[self.current_word_index]
         self.current_word_label = tk.Label(root, text=self.current_word, font=("Helvetica", 50), fg="white", bg="black", borderwidth=0)
         self.canvas.create_window(self.screen_width // 2, self.screen_height - 250, window=self.current_word_label)
 
@@ -163,6 +164,7 @@ class HandTrackingApp:
     def update(self):
         success, frame = self.cap.read()
         if success:
+            self.count = self.count + 1
             # Flip the frame image horizontally
             frame = cv2.flip(frame, 1)
             frame = cv2.resize(frame, (self.target_width, self.target_height))
@@ -178,7 +180,7 @@ class HandTrackingApp:
                     bbox = get_quadratic_bbox_coordinates_with_padding(hand_landmarks, frame.shape[:2])
 
                     hand_subimage = extract_and_preprocess_hand_subimage(frame, bbox)
-                    # cv2.imwrite(f"hand_subimage-{self.count}.jpg", hand_subimage)
+                    #cv2.imwrite(f"e-{self.count}.jpg", hand_subimage)
                     # Pass the hand_subimage to the CNN to detect the sign language gesture!
                     if(self.canProcess):
                         recognized_gesture = process_gesture(hand_subimage)
@@ -251,8 +253,8 @@ class HandTrackingApp:
     def set_new_current_word(self):
         # Update to the next word in the list
         self.current_word_index += 1
-        if self.current_word_index < len(random_words):
-            self.current_word = random_words[self.current_word_index]
+        if self.current_word_index < len(word_list):
+            self.current_word = word_list[self.current_word_index]
             self.current_word_label.config(text=self.current_word)
             self.placeholder = self.create_placeholder()
             self.current_word_placeholder.config(text=self.placeholder)
