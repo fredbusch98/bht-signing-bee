@@ -6,13 +6,17 @@ import mediapipe as mp
 import tkinter as tk
 from PIL import Image, ImageTk
 import os
-from word_generator import load_words, generate_words
+from data_collector import save_image_data_to_csv
+
 # Source Code inspired by: https://mlhive.com/2022/02/hand-landmarks-detection-using-mediapipe-in-python
 # Sign Language Alphabet images source: https://www.flaticon.com/search?author_id=1686&style_id=&type=standard&word=sign+language Letter icons created by Valeria - Flaticon
 images_directory = "../resources/help-images/"
 
-word_list = load_words('../resources/words.txt')
-#random_words = generate_words(20, word_list)
+def load_words(filename):
+    with open(filename, 'r') as file:
+        return file.read().splitlines()
+    
+word_list = load_words('../resources/words_1.txt')
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -46,16 +50,40 @@ class SignLanguageCNN(nn.Module):
         return x
 
 model = SignLanguageCNN()
-model.load_state_dict(torch.load('../resources/models/model_1.pt', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load('../resources/models/model_8.pt', map_location=torch.device('cpu')))
 model.eval()
 
-def process_gesture(hand_subimage):
-    hand_subimage = torch.tensor(hand_subimage, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
-    with torch.no_grad():
-        logits = model(hand_subimage)
-        probabilities = F.softmax(logits, dim=1)
-        predicted_class = probabilities.argmax(dim=1).item()
-    return gestures[predicted_class]
+def process_gesture(hand_subimage, correct_letter):
+    # Convert the hand_subimage to a tensor and add batch and channel dimensions
+    hand_subimage_tensor = torch.tensor(hand_subimage, dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+    
+    # Create a mirrored version of the subimage
+    mirrored_subimage_tensor = torch.flip(hand_subimage_tensor, dims=[3])  # Flip along the vertical axis (dimension 3)
+    
+    def check_top3(subimage_tensor):
+        with torch.no_grad():
+            logits = model(subimage_tensor)
+            probabilities = F.softmax(logits, dim=1)
+            top3_probabilities, top3_indices = torch.topk(probabilities, 3, dim=1)
+            top3_indices = top3_indices.squeeze().tolist()  # Convert top 3 indices to a list
+            return top3_indices
+
+    # Check the top-3 for the original subimage
+    top3_indices_original = check_top3(hand_subimage_tensor)
+    
+    # Check the top-3 for the mirrored subimage
+    top3_indices_mirrored = check_top3(mirrored_subimage_tensor)
+    
+    # Get the index of the correct gesture
+    correct_index = gestures.index(correct_letter)
+    
+    # Check if the correct gesture is in the top-3 of either subimage
+    if correct_index in top3_indices_original or correct_index in top3_indices_mirrored:
+        return correct_letter
+    else:
+        # Return the gesture with the highest probability from the original subimage
+        predicted_class = top3_indices_original[0]
+        return gestures[predicted_class]
 
 def get_current_help_img(current_letter):
     image_path = os.path.join(images_directory, "letter-" + current_letter + ".png")
@@ -164,7 +192,6 @@ class HandTrackingApp:
     def update(self):
         success, frame = self.cap.read()
         if success:
-            self.count = self.count + 1
             # Flip the frame image horizontally
             frame = cv2.flip(frame, 1)
             frame = cv2.resize(frame, (self.target_width, self.target_height))
@@ -180,10 +207,13 @@ class HandTrackingApp:
                     bbox = get_quadratic_bbox_coordinates_with_padding(hand_landmarks, frame.shape[:2])
 
                     hand_subimage = extract_and_preprocess_hand_subimage(frame, bbox)
-                    #cv2.imwrite(f"e-{self.count}.jpg", hand_subimage)
+                    
+                    # Collect own data:
+                    # self.count = self.count + 1
+                    # if (self.count <= 260): save_image_data_to_csv(hand_subimage, label=12)
                     # Pass the hand_subimage to the CNN to detect the sign language gesture!
                     if(self.canProcess):
-                        recognized_gesture = process_gesture(hand_subimage)
+                        recognized_gesture = process_gesture(hand_subimage, self.current_word[self.current_word_letter_index])
                         self.process_recognized_gesture(recognized_gesture)
 
                     # Draw bounding box on the frame
