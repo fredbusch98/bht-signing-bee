@@ -10,13 +10,15 @@ from data_collector import save_image_data_to_csv
 
 # Source Code inspired by: https://mlhive.com/2022/02/hand-landmarks-detection-using-mediapipe-in-python
 # Sign Language Alphabet images source: https://www.flaticon.com/search?author_id=1686&style_id=&type=standard&word=sign+language Letter icons created by Valeria - Flaticon
+model_name = "model_6"
+word_list_name = "words_1"
 images_directory = "../resources/help-images/"
 
 def load_words(filename):
     with open(filename, 'r') as file:
         return file.read().splitlines()
     
-word_list = load_words('../resources/words_1.txt')
+word_list = load_words(f'../resources/{word_list_name}.txt')
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -50,7 +52,7 @@ class SignLanguageCNN(nn.Module):
         return x
 
 model = SignLanguageCNN()
-model.load_state_dict(torch.load('../resources/models/model_8.pt', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(f'../resources/models/{model_name}.pt', map_location=torch.device('cpu')))
 model.eval()
 
 def process_gesture(hand_subimage, correct_letter):
