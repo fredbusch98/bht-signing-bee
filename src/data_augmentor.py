@@ -38,6 +38,7 @@ data = data.values[1:]
 brightness_offsets = [-60, -40, -20, 20, 40, 60]
 
 # Augment the data
+print("Augmenting data...")
 augmented_data = augment_brightness(data, brightness_offsets)
 
 # Convert augmented data back to DataFrame
