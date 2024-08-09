@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 # Output CSV file
-output_csv = 'output.csv'
+output_csv = 'data_collector_output.csv'
 
 def save_image_data_to_csv(image, label):
     # Flatten the image array and prepend the label

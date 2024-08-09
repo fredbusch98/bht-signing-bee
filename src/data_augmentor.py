@@ -23,14 +23,6 @@ def augment_brightness(data, offsets):
             new_pixels = np.clip(pixels + offset, 0, 255)
             augmented_row = [label] + new_pixels.tolist()
             augmented_data.append(augmented_row)
-        
-        # Debugging: Print the original and augmented pixel values for the first few rows
-        if row_idx < 5:  # Print only for the first few rows to avoid too much output
-            print(f"Row {row_idx}:")
-            print(f"Original pixels: {pixels[:10]}")  # Print the first 10 pixels for brevity
-            for offset in offsets:
-                new_pixels = np.clip(pixels + offset, 0, 255)
-                print(f"Offset {offset}: {new_pixels[:10]}")  # Print the first 10 pixels for brevity
     
     return augmented_data
 
@@ -42,7 +34,7 @@ data = pd.read_csv(input_file, header=None)
 header = data.iloc[0].tolist()
 data = data.values[1:]
 
-# Define brightness offsets (example: -60, -40, -20, 20, 40, 60)
+# Define brightness offsets
 brightness_offsets = [-60, -40, -20, 20, 40, 60]
 
 # Augment the data
