@@ -26,7 +26,9 @@ def augment_brightness(data, offsets):
     
     return augmented_data
 
-# Load the CSV file
+# Load the training csv file
+# needs to be added locally to the src directory (the file is too big to add it to the git repository)
+# download link: https://www.kaggle.com/datasets/datamunge/sign-language-mnist?select=sign_mnist_train
 input_file = 'sign_mnist_train.csv'
 data = pd.read_csv(input_file, header=None)
 
