@@ -6,10 +6,17 @@ import pandas as pd
 # Output CSV file
 output_csv = 'data_collector_output.csv'
 
+letters = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y'
+]
+
 def save_image_data_to_csv(image, label):
     # Flatten the image array and prepend the label
     img_flattened = image.flatten()
-    img_data = np.insert(img_flattened, 0, label)
+    label_index = letters.index(label)
+    img_data = np.insert(img_flattened, 0, label_index)
     
     # Convert the image data to a pandas DataFrame
     df = pd.DataFrame([img_data])

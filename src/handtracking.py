@@ -11,7 +11,7 @@ from data_collector import save_image_data_to_csv
 # Source Code inspired by: https://mlhive.com/2022/02/hand-landmarks-detection-using-mediapipe-in-python
 # Sign Language Alphabet images source: https://www.flaticon.com/search?author_id=1686&style_id=&type=standard&word=sign+language Letter icons created by Valeria - Flaticon
 model_version = 6
-data_collector_label = 3
+data_collector_label = 'A'
 word_list_name = "words"
 images_directory = "../resources/help-images/"
 
