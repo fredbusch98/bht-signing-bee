@@ -10,9 +10,9 @@ from data_collector import save_image_data_to_csv
 
 # Source Code inspired by: https://mlhive.com/2022/02/hand-landmarks-detection-using-mediapipe-in-python
 # Sign Language Alphabet images source: https://www.flaticon.com/search?author_id=1686&style_id=&type=standard&word=sign+language Letter icons created by Valeria - Flaticon
-model_version = 6
-data_collector_label = 'A'
-word_list_name = "words"
+model_version = 6 
+data_collector_label = 'D'
+word_list_name = "alphabet"
 images_directory = "../resources/help-images/"
 
 def load_words(filename):
@@ -189,7 +189,7 @@ class HandTrackingApp:
                     
                     # Collect own data:
                     self.count = self.count + 1
-                    if (self.count <= 260): save_image_data_to_csv(hand_subimage, data_collector_label)
+                    if (self.count <= 1196): save_image_data_to_csv(hand_subimage, data_collector_label)
                     # Pass the hand_subimage to the CNN to detect the sign language gesture!
                     if(self.canProcess):
                         recognized_gesture = process_gesture(hand_subimage)
