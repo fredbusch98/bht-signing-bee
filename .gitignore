@@ -3,3 +3,5 @@ augmented_file.csv
 sign_mnist_train.csv
 data_collector_output.csv
 sign_mnist_test
+ASL_Alphabet_Dataset
+hand_landmarks_train.csv

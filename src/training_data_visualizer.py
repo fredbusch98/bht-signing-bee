@@ -3,9 +3,17 @@ from PIL import Image
 import numpy as np
 import os
 
+letters = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y'
+]
+
+label = 'D'
+
 # Define file paths
-csv_file_path = 'test.csv'
-output_directory = '../resources/test-d'
+csv_file_path = 'sign_mnist_train.csv'
+output_directory = f'../resources/{label}-visualized-training-data'
 
 # Create output directory if it doesn't exist
 if not os.path.exists(output_directory):
@@ -15,8 +23,8 @@ if not os.path.exists(output_directory):
 df = pd.read_csv(csv_file_path)
 
 # Filter rows with label '3'
-label = 3
-filtered_df = df[df.iloc[:, 0] == label]
+label_index = letters.index(label)
+filtered_df = df[df.iloc[:, 0] == label_index]
 
 # Iterate over filtered rows and save images
 for index, row in filtered_df.iterrows():
