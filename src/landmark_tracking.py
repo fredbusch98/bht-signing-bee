@@ -13,7 +13,7 @@ import warnings
 # Suppress specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="google.protobuf")
 
-model_name = 'hand_landmark_model_1'
+model_version = 1
 word_list_name = "alphabet"
 
 def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, padding=15):
@@ -48,11 +48,11 @@ class HandGestureMLP(nn.Module):
 
 # Load the trained model
 model = HandGestureMLP(num_classes=24)
-model.load_state_dict(torch.load(f'../resources/models/{model_name}.pth', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(f'../resources/models/hand_landmark_model_{model_version}.pth', map_location=torch.device('cpu')))
 model.eval()
 
 # Load the LabelEncoder
-label_encoder = joblib.load(f'../resources/models/label_encoder_{model_name}.pkl')
+label_encoder = joblib.load(f'../resources/models/label_encoder_hand_landmark_model_{model_version}.pkl')
 
 # Define the gestures list based on LabelEncoder classes
 gestures = label_encoder.classes_.tolist()

@@ -7,7 +7,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import joblib
 
-model_name = 'hand_landmark_model_2'
+model_version = 2
 
 # Dataset class to load the hand landmarks data from CSV
 class HandLandmarksDataset(Dataset):
@@ -69,7 +69,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
-num_epochs = 20
+num_epochs = 200
 for epoch in range(num_epochs):
     model.train()
     total_loss = 0
@@ -118,7 +118,7 @@ for epoch in range(num_epochs):
 
 # Save the LabelEncoder
 label_encoder = dataset.get_label_encoder()
-joblib.dump(label_encoder, f'../resources/models/label_encoder_{model_name}.pkl')
+joblib.dump(label_encoder, f'../resources/models/label_encoder_hand_landmark_model_{model_version}.pkl')
 
 # Save the trained model
-torch.save(model.state_dict(), f'../resources/models/{model_name}.pth')
+torch.save(model.state_dict(), f'../resources/models/hand_landmark_model_{model_version}.pth')

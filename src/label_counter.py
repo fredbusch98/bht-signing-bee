@@ -21,5 +21,5 @@ def count_labels(csv_file_path):
         print(f"Label {label}: {count}")
 
 # Example usage
-csv_file_path = 'hand_landmarks_train.csv'  # Replace with the path to your CSV file
+csv_file_path = 'hand_landmarks_test.csv'  # switch between train and test in name depending on what you want to count
 count_labels(csv_file_path)

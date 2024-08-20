@@ -9,95 +9,67 @@ from sklearn.metrics import precision_score, recall_score, f1_score, confusion_m
 from sklearn.metrics import roc_auc_score, roc_curve, auc
 from sklearn.preprocessing import label_binarize
 from itertools import cycle
-from torchvision import transforms
 
-gestures_confusion_matrix = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 
-    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+# Define the list of letter labels
+letters = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
     'U', 'V', 'W', 'X', 'Y'
 ]
 
-gestures_roc_auc = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
-    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
-    'U', 'V', 'W', 'X', 'Y'
-]
-
-# Load the dataset
-test_df = pd.read_csv('../resources/sign_mnist_test/sign_mnist_test.csv')
-
-# Split the data into features and labels
-X_test = test_df.iloc[:, 1:].values.reshape(-1, 28, 28).astype(np.float32)
-y_test = test_df.iloc[:, 0].values
-
-# Normalize the data
-X_test /= 255.0
-
-# Define a custom Dataset class
-class SignLanguageDataset(Dataset):
-    def __init__(self, images, labels, transform=None):
-        self.images = images
-        self.labels = labels
-        self.transform = transform
-
-    def __len__(self):
-        return len(self.images)
-
-    def __getitem__(self, idx):
-        image = self.images[idx]
-        label = self.labels[idx]
-        
-        if self.transform:
-            image = self.transform(image)
-        
-        return image, label
-class SignLanguageCNN(nn.Module):
-    def __init__(self):
-        super(SignLanguageCNN, self).__init__()
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
-        self.fc1 = nn.Linear(128 * 3 * 3, 256)
-        self.fc2 = nn.Linear(256, 128)
-        self.fc3 = nn.Linear(128, 25)  # 25 classes
+# Define the neural network model (MLP) for hand landmarks
+class HandGestureMLP(nn.Module):
+    def __init__(self, input_size=63, hidden_size=128, num_classes=24):
+        super(HandGestureMLP, self).__init__()
+        self.fc1 = nn.Linear(input_size, hidden_size)
+        self.fc2 = nn.Linear(hidden_size, hidden_size)
+        self.fc3 = nn.Linear(hidden_size, num_classes)
 
     def forward(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.pool(F.relu(self.conv2(x)))
-        x = self.pool(F.relu(self.conv3(x)))
-        x = x.view(-1, 128 * 3 * 3)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
 
-# Define data transforms
-transform = transforms.Compose([
-    transforms.ToPILImage(),
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
+# Load the dataset
+test_df = pd.read_csv('hand_landmarks_test.csv')
+
+# Split the data into features and labels
+X_test = test_df.iloc[:, 1:].values.astype(np.float32)
+y_test = test_df.iloc[:, 0].values
+
+# Load the LabelEncoder
+import joblib
+label_encoder = joblib.load('../resources/models/label_encoder_hand_landmark_model_1.pkl')
+num_classes = len(label_encoder.classes_)
+
+# Define a custom Dataset class
+class HandLandmarksDataset(Dataset):
+    def __init__(self, features, labels):
+        self.features = torch.tensor(features, dtype=torch.float32)
+        self.labels = torch.tensor(labels, dtype=torch.long)
+
+    def __len__(self):
+        return len(self.features)
+
+    def __getitem__(self, idx):
+        return self.features[idx], self.labels[idx]
 
 # Create the dataset and data loaders
-test_dataset = SignLanguageDataset(X_test, y_test, transform=transform)
-
+test_dataset = HandLandmarksDataset(X_test, y_test)
 test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 # Load model and switch it to evaluation mode
-model = SignLanguageCNN()
-model.load_state_dict(torch.load(f'../resources/models/model_6.pt', map_location=torch.device('cpu')))
+model = HandGestureMLP(input_size=X_test.shape[1], num_classes=num_classes)
+model.load_state_dict(torch.load(f'../resources/models/hand_landmark_model_1.pth', map_location=torch.device('cpu')))
 model.eval()
 
 all_labels = []
 all_predictions = []
 all_probabilities = []
-    
+
 device = torch.device('cpu')
 model.to(device)
-
-all_labels = []
-all_predictions = []
 
 correct = 0
 total = 0
@@ -105,11 +77,11 @@ total = 0
 # Disable gradient computation for evaluation
 with torch.no_grad():
     for data in test_loader:
-        inputs, labels = data
-        inputs, labels = inputs.to(device), labels.to(device)
+        features, labels = data
+        features, labels = features.to(device), labels.to(device)
         
         # Get model outputs
-        outputs = model(inputs)
+        outputs = model(features)
         
         # Convert outputs to predicted labels (multiclass classification)
         _, preds = torch.max(outputs, 1)
@@ -122,7 +94,7 @@ with torch.no_grad():
         all_labels.extend(labels.cpu().numpy())
         
         # Append outputs to get probability scores for ROC
-        all_probabilities.extend(outputs.cpu().numpy())
+        all_probabilities.extend(F.softmax(outputs, dim=1).cpu().numpy())
 
 # Calculate precision, recall, and F1-score using sklearn
 precision = precision_score(all_labels, all_predictions, average='macro')
@@ -139,23 +111,29 @@ print(f'F1-Score: {f1:.4f}')
 cm = confusion_matrix(all_labels, all_predictions)
 
 # Display and save the confusion matrix with letter labels
-plt.figure(figsize=(10, 8))
-disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=gestures_confusion_matrix)
-disp.plot(cmap=plt.cm.Blues, ax=plt.gca())
+plt.figure(figsize=(15, 12))  # Increase the figure size
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=letters)
+disp.plot(cmap=plt.cm.Blues, ax=plt.gca(), xticks_rotation='vertical')  # Rotate x-axis labels if needed
 plt.title('Confusion Matrix')
-plt.savefig('confusion_matrix.jpg', bbox_inches='tight')  # Save the confusion matrix as a JPG file
+
+# Adjust font sizes
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.xlabel('Predicted Label', fontsize=14)
+plt.ylabel('True Label', fontsize=14)
+
+plt.savefig('confusion_matrix.jpg', bbox_inches='tight')
 plt.show()
 
 # Binarize the labels for ROC calculation
-n_classes = 25
-y_test_bin = label_binarize(all_labels, classes=range(n_classes))
+y_test_bin = label_binarize(all_labels, classes=range(num_classes))
 y_score = np.array(all_probabilities)
 
 # Compute ROC curve and ROC area for each class
 fpr = dict()
 tpr = dict()
 roc_auc = dict()
-for i in range(n_classes):
+for i in range(num_classes):
     fpr[i], tpr[i], _ = roc_curve(y_test_bin[:, i], y_score[:, i])
     roc_auc[i] = auc(fpr[i], tpr[i])
 
@@ -164,19 +142,20 @@ fpr["micro"], tpr["micro"], _ = roc_curve(y_test_bin.ravel(), y_score.ravel())
 roc_auc["micro"] = auc(fpr["micro"], tpr["micro"])
 
 # Plot ROC curve with letter labels
-plt.figure(figsize=(12, 10))
-plt.plot(fpr["micro"], tpr["micro"], label='Micro-average ROC curve (area = {0:0.2f})'.format(roc_auc["micro"]))
-colors = cycle(['aqua', 'darkorange', 'cornflowerblue', 'navy', 'turquoise', 'lime', 'violet', 'purple', 'magenta', 'brown'])
-for i, color in zip(range(n_classes), colors):
-    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='ROC curve of class {0} (area = {1:0.2f})'.format(gestures_roc_auc[i], roc_auc[i]))
+plt.figure(figsize=(15, 12))  # Increase the figure size
+plt.plot(fpr["micro"], tpr["micro"], label='Micro-average ROC curve (area = {0:0.2f})'.format(roc_auc["micro"]), color='navy', lw=2)
+colors = cycle(['aqua', 'darkorange', 'cornflowerblue', 'darkgreen', 'red', 'purple', 'brown', 'pink', 'cyan', 'orange'])
+for i, color in zip(range(num_classes), colors):
+    plt.plot(fpr[i], tpr[i], color=color, lw=2, label='ROC curve of class {0} (area = {1:0.2f})'.format(letters[i], roc_auc[i]))
 
 plt.plot([0, 1], [0, 1], 'k--')
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
-plt.xlabel('False Positive Rate')
-plt.ylabel('True Positive Rate')
-plt.title('Receiver Operating Characteristic to Multi-class')
-plt.legend(loc="lower right")
+plt.xlabel('False Positive Rate', fontsize=14)
+plt.ylabel('True Positive Rate', fontsize=14)
+plt.title('Receiver Operating Characteristic (Multi-class)', fontsize=16)
+plt.legend(loc="lower right", fontsize=12)
+plt.grid(True)  # Add grid lines for better readability
 plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
-plt.savefig('roc_auc_curve.jpg', bbox_inches='tight')  # Save the ROC AUC curve as a JPG file
+plt.savefig('roc_auc_curve.jpg', bbox_inches='tight')
 plt.show()
