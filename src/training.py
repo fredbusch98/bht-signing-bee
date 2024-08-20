@@ -7,7 +7,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import joblib
 
-model_name = 'hand_landmark_model_1'
+model_name = 'hand_landmark_model_2'
 
 # Dataset class to load the hand landmarks data from CSV
 class HandLandmarksDataset(Dataset):
@@ -49,6 +49,9 @@ class HandGestureMLP(nn.Module):
         x = self.fc3(x)
         return x
 
+# Check if GPU is available and set device
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
 # Load the dataset
 dataset = HandLandmarksDataset('hand_landmarks_train.csv')
 
@@ -61,7 +64,7 @@ train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
 
 # Initialize model, loss function, and optimizer
-model = HandGestureMLP(num_classes=len(dataset.get_label_encoder().classes_))
+model = HandGestureMLP(num_classes=len(dataset.get_label_encoder().classes_)).to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
@@ -74,6 +77,9 @@ for epoch in range(num_epochs):
     total = 0
     
     for features, labels in train_loader:
+        # Move data to device
+        features, labels = features.to(device), labels.to(device)
+        
         # Zero gradients
         optimizer.zero_grad()
         
@@ -99,6 +105,9 @@ for epoch in range(num_epochs):
     total = 0
     with torch.no_grad():
         for features, labels in val_loader:
+            # Move data to device
+            features, labels = features.to(device), labels.to(device)
+            
             outputs = model(features)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
@@ -106,7 +115,6 @@ for epoch in range(num_epochs):
 
     val_accuracy = 100 * correct / total
     print(f'Validation Accuracy: {val_accuracy:.2f}%')
-
 
 # Save the LabelEncoder
 label_encoder = dataset.get_label_encoder()

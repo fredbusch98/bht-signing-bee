@@ -17,10 +17,10 @@ missing_landmark_counter = 0
 landmark_counter = 0
 
 # Define the path to the folder containing the dataset
-asl_alphabet_train_path = "../resources/ASL_Alphabet_Dataset/asl_alphabet_train"
+asl_alphabet_train_path = "../resources/ASL_Alphabet_Dataset/asl_alphabet_test"
 
 # Define the output CSV file path
-output_csv_path = "hand_landmarks_train.csv"
+output_csv_path = "hand_landmarks_test.csv"
 
 # Initialize MediaPipe Hands
 with mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.5) as hands:

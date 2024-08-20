@@ -8,6 +8,10 @@ from PIL import Image, ImageTk
 import os
 import numpy as np
 import joblib
+import warnings
+
+# Suppress specific warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="google.protobuf")
 
 model_name = 'hand_landmark_model_1'
 word_list_name = "alphabet"
@@ -187,7 +191,7 @@ class HandTrackingApp:
                         recognized_gesture = process_gesture(hand_landmarks_array)
                         self.process_recognized_gesture(recognized_gesture)
 
-                    cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (0, 255, 0), 2)
+                    cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 255, 255), 2)
 
             img = Image.fromarray(frame)
             imgtk = ImageTk.PhotoImage(image=img)
@@ -240,22 +244,39 @@ class HandTrackingApp:
 
             self.help_label.config(image=next_help_img_tk)
             self.help_label.image = next_help_img_tk
-        else:
-            self.current_word_index += 1
-            if self.current_word_index < len(self.word_list):
-                self.current_word = self.word_list[self.current_word_index]
-                self.current_word_placeholder.config(text=self.create_placeholder())
-                self.current_word_label.config(text=self.current_word)
-                self.current_word_letter_index = 0
-            else:
-                self.quit_app()
 
+        if self.current_word_letter_index == len(self.current_word):
+            self.current_word_letter_index = 0
+            self.set_new_current_word()
         self.canProcess = True
 
     def process_key_input(self, event):
         key = event.char.upper()
         if key.isalpha() and self.canProcess:
             self.process_recognized_gesture(key)
+
+    def set_new_current_word(self):
+        # Update to the next word in the list
+        self.current_word_index += 1
+        if self.current_word_index < len(self.word_list):
+            self.current_word = self.word_list[self.current_word_index]
+            self.current_word_label.config(text=self.current_word)
+            self.placeholder = self.create_placeholder()
+            self.current_word_placeholder.config(text=self.placeholder)
+
+            # Update help image for the first letter of the new word
+            first_letter = self.current_word[0]
+            first_help_img = self.get_current_help_img(first_letter)
+            first_help_img = cv2.resize(first_help_img, (400, 400))
+
+            # Convert the first help image to a format suitable for Tkinter
+            first_help_img_rgb = cv2.cvtColor(first_help_img, cv2.COLOR_BGR2RGB)
+            first_help_img_pil = Image.fromarray(first_help_img_rgb)
+            first_help_img_tk = ImageTk.PhotoImage(image=first_help_img_pil)
+
+            # Update the help label with the new image
+            self.help_label.config(image=first_help_img_tk)
+            self.help_label.image = first_help_img_tk
         
     def create_placeholder(self):
         return '_ ' * len(self.current_word)
