@@ -13,6 +13,7 @@ from itertools import cycle
 ####
 # This script calculates the following metrics for our hand gesture recognition model: 
 # Accuracy, Precision, Recall, F1-Score, the Confusion Matrix and the ROC_AUC curve.
+# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. Check for download link in the README.md
 ####
 
 # Define the list of letter labels

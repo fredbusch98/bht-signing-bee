@@ -14,13 +14,13 @@ pip install torch
 Navigate to the 'src' folder and start the application
 ```bat
 cd src
-python handtracking.py
+python signing_bee.py
 ```
 
 Application shortcuts
 ```
 'z'   - quits the application
-'j'   - toggles visualizing the hands bounding box and hand-landmarks
+'j'   - toggles visualizing the hand-landmarks
 'esc' - toggles full screen
 ```
 
@@ -45,3 +45,17 @@ Resources:
 * [3] MediaPipe - https://mediapipe.readthedocs.io/en/latest/solutions/hands.html
 * [4] PyTorch - https://pytorch.org/docs/stable/index.html 
 * [5] tkinter - https://docs.python.org/3/library/tkinter.html
+
+
+## Download Links
+
+### Preprocessed Hand Landmark Data
+Link: https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing
+
+### Data Sets
+
+#### ASL(American Sign Language) Alphabet Dataset
+Link: https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset
+
+#### ASL Alphabet
+Link: https://www.kaggle.com/datasets/grassknoted/asl-alphabet?select=asl_alphabet_train

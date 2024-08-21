@@ -4,6 +4,7 @@ from collections import Counter
 ####
 # This script counts the number of occurrences of each label in our preprocessed hand landmarks data.
 # It can be useful to check if the dataset is balanced or not.
+# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. Check for download link in the README.md
 ####
 
 def count_labels(csv_file_path):

@@ -9,6 +9,7 @@ import joblib
 
 ####
 # This script trains and saves our hand gesture recognition model using the beforehand pre-processed hand landmarks data.
+# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. Check for download link in the README.md
 ####
 
 model_version = 2
