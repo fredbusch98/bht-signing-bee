@@ -2,17 +2,23 @@
 
 ## Getting Started
 
-Folgende python packages müssen installiert werden: `mediapipe`, `pillow`, `opencv-python`, `torch`, `scikit-learn` (wird nur benötigt, wenn das Modell neu trainiert oder evaluiert werden soll)
-
+Folgende python packages müssen installiert werden: `mediapipe`, `pillow`, `opencv-python`, `torch`
 ```bat
 pip install mediapipe
 pip install pillow
 pip install opencv-python
 pip install torch
+```
+`scikit-learn` (wird nur benötigt, wenn das Modell neu trainiert oder evaluiert werden soll)
+
+```bat
 pip install scikit-learn
 ```
 
-Navigiere zum Ordner „src“ und starte die Anwendung
+## How to use
+Es wird eine Webcam benötigt! Nach dem Start der Anwendung wird ein Wort aus einer vordefinierten Liste von Wörtern angezeigt. Diese müssen vor der Webcam in amerikanischer Zeichensprache (ASL) buchstabiert werden. Um Benutzern zu helfen, die nicht mit dem ASL-Alphabet vertraut sind, gibt es ein Hilfsbild in der Benutzeroberfläche, das die aktuell erforderliche Gebärde anzeigt. Für den Fall, dass ein Buchstabe mal nicht erkannt wird und man zum nächsten übergehen möchte, haben wir auch Tastaturunterstützung implementiert, so dass Buchstaben übersprungen werden können.
+
+Navigiere zum Ordner `/src` und starte die Anwendung
 ```bat
 cd src
 python signing_bee.py
@@ -24,12 +30,6 @@ Application shortcuts
 'j'   - Visualisierung der Hand Landmarks an- / ausschalten
 'esc' - Vollbildmodus an- / ausschalten
 ```
-
-## How to use
-Es wird eine Webcam benötigt! Nach dem Start der Anwendung wird ein Wort aus einer vordefinierten Liste von Wörtern angezeigt. Diese müssen vor der Webcam in amerikanischer Zeichensprache (ASL) buchstabiert werden. Um Benutzern zu helfen, die nicht mit dem ASL-Alphabet vertraut sind, gibt es ein Hilfsbild in der Benutzeroberfläche, das die aktuell erforderliche Gebärde anzeigt. Für den Fall, dass ein Buchstabe mal nicht erkannt wird und man zum nächsten übergehen möchte, haben wir auch Tastaturunterstützung implementiert, so dass Buchstaben übersprungen werden können.
-
-Übersetzt mit DeepL.com (kostenlose Version)
-
 
 ## Exposé - Signing Bee
 Frederik Busch, Marc Waclaw, Lennart Reinke
