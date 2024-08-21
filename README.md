@@ -94,14 +94,14 @@ Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, impleme
      - **Aktivierungsfunktion**: Im Output Layer wird keine Aktivierungsfunktion angewendet. Stattdessen gibt das Layer Rohwerte oder Logits aus, die später in der Verlustberechnung durch die Softmax-Funktion (implizit in der Crossentropy-Verlustfunktion) in Wahrscheinlichkeiten umgewandelt werden.
 
 #### 4. **Zusammenfassung des Modells:**
-   - **Modelltyp**: Mehrschichtiges Perzeptron (MLP)
+   - **Modelltyp**: Multilayered Perceptron (MLP)
    - **Architektur**:
-     - **Eingabe**: 63 Features
-     - **Versteckte Schicht 1**: 128 Neuronen, ReLU-Aktivierung
-     - **Versteckte Schicht 2**: 128 Neuronen, ReLU-Aktivierung
-     - **Ausgabe**: `num_classes` (24 Klassen)
+     - **Input**: 63 Features
+     - **Hidden Layer 1**: 128 Neuronen, ReLU-Aktivierung
+     - **Hidden Layer 2**: 128 Neuronen, ReLU-Aktivierung
+     - **Output**: `num_classes` (24 Klassen)
    - **Gesamtzahl der Parameter**:
-     - Die Anzahl der Parameter kann durch die Formel für vollverbundene Schichten berechnet werden: \( \text{Parameter} = (\text{Eingangsgröße} \times \text{Ausgangsgröße}) + \text{Ausgangsgröße} \).
+     - Die Anzahl der Parameter kann durch die Formel für fully-connected Layer berechnet werden: \( \text{Parameter} = (\text{Eingangsgröße} \times \text{Ausgangsgröße}) + \text{Ausgangsgröße} \).
      - Für `fc1`: \( (63 \times 128) + 128 = 8128 \)
      - Für `fc2`: \( (128 \times 128) + 128 = 16512 \)
      - Für `fc3`: \( (128 \times 24) + 24 = 3104 \)
