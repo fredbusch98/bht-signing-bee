@@ -12,8 +12,8 @@ import joblib
 # The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
 ####
 
-model_version = 2
-num_epochs = 50
+model_version = 3 # 4, 5, 6
+num_epochs = 50 # 100, 150, 200
 
 # Dataset class to load the hand landmarks data from CSV
 class HandLandmarksDataset(Dataset):
@@ -59,7 +59,7 @@ class HandGestureMLP(nn.Module):
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Load the dataset
-dataset = HandLandmarksDataset('../resources/data/hand_landmarks_train.csv')
+dataset = HandLandmarksDataset('../resources/data/hand_landmarks_train_flipped.csv')
 
 # Split into training and validation sets
 train_size = int(0.8 * len(dataset))

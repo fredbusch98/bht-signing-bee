@@ -13,8 +13,8 @@ import warnings
 # Suppress specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="google.protobuf")
 
-model_version = 1
-word_list_name = "alphabet"
+model_version = 2
+word_list_name = "words"
 
 def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, padding=15):
     all_x, all_y = [], []
@@ -59,7 +59,7 @@ gestures = label_encoder.classes_.tolist()
 
 # Define the gestures
 letters = [
-    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
     'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S','T',
     'U', 'V', 'W', 'X', 'Y'
 ]

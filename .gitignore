@@ -1,4 +1,4 @@
 __pycache__/
 ASL_Alphabet_Dataset
-hand_landmarks_train.csv
-hand_landmarks_test.csv
+hand_landmarks_train_flipped.csv
+hand_landmarks_test_flipped.csv

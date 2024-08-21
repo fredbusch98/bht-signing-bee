@@ -16,7 +16,7 @@ from itertools import cycle
 # The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
 ####
 
-model_version = 1
+model_version = 2
 
 # Define the list of letter labels
 letters = [
@@ -40,7 +40,7 @@ class HandGestureMLP(nn.Module):
         return x
 
 # Load the dataset
-test_df = pd.read_csv('../resources/data/hand_landmarks_test.csv')
+test_df = pd.read_csv('../resources/data/hand_landmarks_test_flipped.csv')
 
 # Split the data into features and labels
 X_test = test_df.iloc[:, 1:].values.astype(np.float32)

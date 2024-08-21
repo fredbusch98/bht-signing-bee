@@ -1,12 +1,6 @@
 import csv
 from collections import Counter
 
-####
-# This script counts the number of occurrences of each label in our preprocessed hand landmarks data.
-# It can be useful to check if the dataset is balanced or not.
-# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
-####
-
 def count_labels(csv_file_path):
     # Use the provided list of letters for indexing
     letters = [
@@ -37,9 +31,21 @@ def count_labels(csv_file_path):
                     continue
     
     # Print out the counts for each label in alphabetical order (A to Y)
+    total_count = 0
+    num_labels = len(label_counter)
+
     for label in sorted(label_counter):
-        print(f"Label {label}: {label_counter[label]}")
+        count = label_counter[label]
+        total_count += count
+        print(f"Label {label}: {count}")
+    
+    # Calculate and print the average
+    if num_labels > 0:
+        average_count = total_count / num_labels
+        print(f"\nAverage count per label: {average_count:.2f}")
+    else:
+        print("\nNo labels found.")
 
 # Example usage
-csv_file_path = '../resources/data/hand_landmarks_test.csv'  # switch between train and test in name depending on what you want to count
+csv_file_path = '../resources/data/hand_landmarks_test_flipped.csv'  # switch between train and test in name depending on what you want to count
 count_labels(csv_file_path)
