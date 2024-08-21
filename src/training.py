@@ -8,11 +8,12 @@ import torch.nn.functional as F
 import joblib
 
 ####
-# This script trains and saves our hand gesture recognition model using the beforehand pre-processed hand landmarks data.
-# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. Check for download link in the README.md
+# This script trains and saves our hand gesture recognition model using the beforehand preprocessed hand landmarks data.
+# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
 ####
 
 model_version = 2
+num_epochs = 50
 
 # Dataset class to load the hand landmarks data from CSV
 class HandLandmarksDataset(Dataset):
@@ -74,7 +75,6 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
-num_epochs = 200
 for epoch in range(num_epochs):
     model.train()
     total_loss = 0

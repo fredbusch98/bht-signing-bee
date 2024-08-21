@@ -13,8 +13,10 @@ from itertools import cycle
 ####
 # This script calculates the following metrics for our hand gesture recognition model: 
 # Accuracy, Precision, Recall, F1-Score, the Confusion Matrix and the ROC_AUC curve.
-# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. Check for download link in the README.md
+# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
 ####
+
+model_version = 1
 
 # Define the list of letter labels
 letters = [
@@ -46,7 +48,7 @@ y_test = test_df.iloc[:, 0].values
 
 # Load the LabelEncoder
 import joblib
-label_encoder = joblib.load('../resources/models/label_encoder_hand_landmark_model_1.pkl')
+label_encoder = joblib.load(f'../resources/models/label_encoder_hand_landmark_model_{model_version}.pkl')
 num_classes = len(label_encoder.classes_)
 
 # Define a custom Dataset class
@@ -67,7 +69,7 @@ test_loader = DataLoader(test_dataset, batch_size=64, shuffle=False)
 
 # Load model and switch it to evaluation mode
 model = HandGestureMLP(input_size=X_test.shape[1], num_classes=num_classes)
-model.load_state_dict(torch.load(f'../resources/models/hand_landmark_model_1.pth', map_location=torch.device('cpu')))
+model.load_state_dict(torch.load(f'../resources/models/hand_landmark_model_{model_version}.pth', map_location=torch.device('cpu')))
 model.eval()
 
 all_labels = []
