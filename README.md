@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Folgende python packages müssen installiert werden: mediapipe, pillow, opencv-python, torch, scikit-learn (wird nur benötigt, wenn das Modell neu trainiert oder evaluiert werden soll)
+Folgende python packages müssen installiert werden: `mediapipe`, `pillow`, `opencv-python`, `torch`, `scikit-learn` (wird nur benötigt, wenn das Modell neu trainiert oder evaluiert werden soll)
 
 ```bat
 pip install mediapipe
