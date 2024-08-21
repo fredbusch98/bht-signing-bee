@@ -77,6 +77,20 @@ Da beide Datensätze ausschließlich Bilddaten enthalten, wir jedoch Hand-Landma
 
 Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, implementierten wir das Skript `label_counter.py`, das die Gesamtanzahl der Datenpunkte pro Label ermittelt. Es stellte sich heraus, dass die Buchstaben M und N nach der Vorverarbeitung signifikant weniger Datenpunkte aufwiesen als der Durchschnitt, mit lediglich 3017 (M) bzw. 3432 (N) Datenpunkten. Zur Balance des Trainingsdatensatzes wurden diese Buchstaben durch Duplizieren von Datenpunkten aufgestockt, um sicherzustellen, dass für jeden Buchstaben mindestens 5000 Datenpunkte vorhanden sind.
 
+## Ergebnisse
+
+Accuracy: 99,05%  
+Precision: 99,00%  
+Recall: 98,99%  
+F1-Score: 98,98%
+
+### Konfusionsmatrix
+
+![Konfusionsmatrix](resources/results/confusion_matrix.jpg)
+
+### ROC_AUC Kurve
+
+![ROC_AUC Kurve](resources/results/roc_auc_curve.jpg)
 
 ## Download Links
 
