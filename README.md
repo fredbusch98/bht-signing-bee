@@ -113,7 +113,7 @@ Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, impleme
   - Der Trainingsprozess verwendet die Crossentropy-Verlustfunktion (`nn.CrossEntropyLoss`) und den Adam-Optimierer (`optim.Adam`). Der Optimierer aktualisiert die Modellparameter basierend auf dem Gradienten des Verlusts, der durch Backpropagation berechnet wird.
 
 - **Evaluation**:
-  - Die Leistung des Modells wird während des Trainings auf einem Validierungsdatensatz bewertet, um die Genauigkeit des Modells zu überwachen und Überanpassung (Overfitting) zu verhindern.
+  - Die Leistung des Modells wird während des Trainings auf einem Validierungsdatensatz bewertet, um die Genauigkeit des Modells zu überwachen und Überanpassung (Overfitting) zu verhindern. Außerdem gibt es noch ein zusätzliches Skript `metrics.py`, welches weitere Metriken zur Evaluierung unseres Modells berechnet: `Accuracy`, `Precision`, `Recall`, `F1-Score`, `Confusion Matrix` und `ROC_AUC Curve`
 
 ## Ergebnisse
 
@@ -122,11 +122,11 @@ Precision: 99,00%
 Recall: 98,99%  
 F1-Score: 98,98%
 
-### Konfusionsmatrix
+### Confusion Matrix
 
 <img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
 
-### ROC_AUC Kurve
+### ROC_AUC Curve
 
 <img src="resources/results/roc_auc_curve.jpg" alt="ROC_AUC Kurve" width="600" height="600">
 
