@@ -2,13 +2,14 @@
 
 ## Getting Started
 
-Install the following python packages: mediapipe, pillow, opencv-python, torch
+Install the following python packages: mediapipe, pillow, opencv-python, torch, scikit-learn (only needed if you want to train or evaluate the model)
 
 ```bat
 pip install mediapipe
 pip install pillow
 pip install opencv-python
 pip install torch
+pip install scikit-learn ### only needed if you want to train or evaluate the model
 ```
 
 Navigate to the 'src' folder and start the application
