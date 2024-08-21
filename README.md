@@ -86,11 +86,11 @@ F1-Score: 98,98%
 
 ### Konfusionsmatrix
 
-![Konfusionsmatrix](resources/results/confusion_matrix.jpg)
+<img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
 
 ### ROC_AUC Kurve
 
-![ROC_AUC Kurve](resources/results/roc_auc_curve.jpg)
+<img src="resources/results/roc_auc_curve.jpg" alt="ROC_AUC Kurve" width="600" height="600">
 
 ## Download Links
 
