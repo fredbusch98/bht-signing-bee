@@ -144,6 +144,10 @@ class HandTrackingApp:
         
         self.current_word_letter_index = 0  # Variable to keep track of the current index in the word
         self.root.bind('<Key>', self.process_key_input)  # Bind keyboard events to process user input
+
+        self.bbox_color = (255, 0, 0)
+        self.correct_gesture = False
+        self.recognized_gesture_text = ""
         
         self.update()
 
@@ -180,8 +184,8 @@ class HandTrackingApp:
                 for hand_landmarks in results.multi_hand_landmarks:
                     if self.verbose:
                         mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS,
-                                                  mp_drawing_styles.get_default_hand_landmarks_style(),
-                                                  mp_drawing_styles.get_default_hand_connections_style())
+                                                mp_drawing_styles.get_default_hand_landmarks_style(),
+                                                mp_drawing_styles.get_default_hand_connections_style())
                     bbox = get_quadratic_bbox_coordinates_with_padding(hand_landmarks, frame.shape[:2])
                     
                     # Convert hand landmarks to a numpy array for prediction
@@ -189,9 +193,15 @@ class HandTrackingApp:
                     
                     if self.canProcess:
                         recognized_gesture = process_gesture(hand_landmarks_array)
-                        self.process_recognized_gesture(recognized_gesture)
+                        self.process_recognized_gesture(recognized_gesture, frame, bbox)
+                    else:
+                        # Draw the stored bbox color when processing is disabled
+                        cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), self.bbox_color, 2)
 
-                    cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), (255, 255, 255), 2)
+                    # Draw the recognized gesture as text above the bbox
+                    if hasattr(self, 'recognized_gesture_text') and self.recognized_gesture_text:
+                        text_position = (bbox[0], bbox[1] - 10)
+                        cv2.putText(frame, self.recognized_gesture_text, text_position, cv2.FONT_HERSHEY_SIMPLEX, 1, self.bbox_color, 2)
 
             img = Image.fromarray(frame)
             imgtk = ImageTk.PhotoImage(image=img)
@@ -214,7 +224,7 @@ class HandTrackingApp:
     def toggle_verbose(self, event=None):
         self.verbose = not self.verbose 
 
-    def process_recognized_gesture(self, recognized_gesture):
+    def process_recognized_gesture(self, recognized_gesture, frame, bbox):
         if recognized_gesture.isalpha() and self.current_word_letter_index < len(self.current_word):
             current_letter = self.current_word[self.current_word_letter_index]
 
@@ -224,11 +234,18 @@ class HandTrackingApp:
                 self.current_word_placeholder.config(text=new_placeholder_text)
 
                 self.last_input_label.config(text=current_letter, fg="green")
+                self.bbox_color = (0, 255, 0)  # Set bbox color to green
+                self.correct_gesture = True  # Mark correct gesture
                 self.canProcess = False
+                self.recognized_gesture_text = recognized_gesture.upper()  # Store recognized gesture for display
+                cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), self.bbox_color, 2)
                 self.root.after(2000, self.clear_last_input_and_proceed)
-
             else:
                 self.last_input_label.config(text=recognized_gesture.upper(), fg="red")
+                self.bbox_color = (255, 0, 0)  # Set bbox color to red
+                self.correct_gesture = False  # Mark incorrect gesture
+                self.recognized_gesture_text = recognized_gesture.upper()  # Store recognized gesture for display
+                cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), self.bbox_color, 2)
 
     def clear_last_input_and_proceed(self):
         self.last_input_label.config(text="", bg="black")
@@ -248,6 +265,11 @@ class HandTrackingApp:
         if self.current_word_letter_index == len(self.current_word):
             self.current_word_letter_index = 0
             self.set_new_current_word()
+
+        # Reset bbox color to red after processing
+        self.bbox_color = (255, 0, 0)
+        self.correct_gesture = False
+        self.recognized_gesture_text = ""
         self.canProcess = True
 
     def process_key_input(self, event):
