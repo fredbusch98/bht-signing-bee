@@ -94,8 +94,8 @@ F1-Score: 98,98%
 
 ## Download Links
 
-Preprocessed Hand Landmark Data - https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing
+[Google Drive](https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing) - Vorverarbeitete Hand Landmark Datenpunkte (Training / Test)
 
-Trainingsdaten - [ASL (American Sign Language) Alphabet Dataset](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset)
+ASL (American Sign Language) Alphabet Dataset](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset) - Trainingsbilder
 
-Testdaten - [ASL Alphabet](https://www.kaggle.com/datasets/grassknoted/asl-alphabet?select=asl_alphabet_train)
+[ASL Alphabet](https://www.kaggle.com/datasets/grassknoted/asl-alphabet?select=asl_alphabet_train) - Testbilder
