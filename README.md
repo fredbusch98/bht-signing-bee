@@ -49,8 +49,8 @@ Resources:
 
 ## Download Links
 
-Preprocessed Hand Landmark Data - Link: https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing
+Preprocessed Hand Landmark Data - https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing
 
-ASL(American Sign Language) Alphabet Dataset - Link: https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset
+ASL(American Sign Language) Alphabet Dataset - https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset
 
-ASL Alphabet - Link: https://www.kaggle.com/datasets/grassknoted/asl-alphabet?select=asl_alphabet_train
+ASL Alphabet - https://www.kaggle.com/datasets/grassknoted/asl-alphabet?select=asl_alphabet_train
