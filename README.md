@@ -77,6 +77,44 @@ Da beide Datensätze ausschließlich Bilddaten enthalten, wir jedoch Hand-Landma
 
 Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, implementierten wir das Skript `label_counter.py`, das die Gesamtanzahl der Datenpunkte pro Label ermittelt. Es stellte sich heraus, dass die Buchstaben M und N nach der Vorverarbeitung signifikant weniger Datenpunkte aufwiesen als der Durchschnitt, mit lediglich 3017 (M) bzw. 3432 (N) Datenpunkten. Zur Balance des Trainingsdatensatzes wurden diese Buchstaben durch Duplizieren von Datenpunkten aufgestockt, um sicherzustellen, dass für jeden Buchstaben mindestens 5000 Datenpunkte vorhanden sind.
 
+### Architektur des HandGestureMLP-Modells
+
+#### 1. **Eingabeschicht:**
+   - **`input_size=63`**: Die Eingabeschicht erwartet einen Eingabefeature-Vektor mit 63 Merkmalen. Diese Merkmale stammen aus den vorverarbeiteten Handlandmark-Daten. Jeder Vektor stellt die Merkmale eines Handbildes oder einer Handgeste dar, wobei jedes Merkmal die Position eines bestimmten Punktes auf der Hand repräsentiert.
+
+#### 2. **Versteckte Schichten:**
+   - **`fc1`**: Die erste versteckte Schicht (`fc1`) ist ein vollverbundener Layer (`nn.Linear(input_size, hidden_size)`). Sie hat 128 Neuronen (`hidden_size`) und ist für die Umwandlung der Eingabefeatures in eine höherdimensionale Repräsentation verantwortlich.
+     - **Aktivierungsfunktion**: Nach der Linearen Transformation wird die ReLU-Aktivierungsfunktion (`F.relu`) angewendet, die nicht-lineare Beziehungen in den Daten modellieren kann.
+     
+   - **`fc2`**: Die zweite versteckte Schicht (`fc2`) ist ebenfalls ein vollverbundener Layer, der die Ausgabe der ersten versteckten Schicht auf eine weitere höhere Dimension transformiert, wieder mit 128 Neuronen.
+     - **Aktivierungsfunktion**: Auch hier wird die ReLU-Aktivierungsfunktion verwendet, um nicht-lineare Beziehungen zu modellieren.
+
+#### 3. **Ausgabeschicht:**
+   - **`fc3`**: Die Ausgabeschicht (`fc3`) ist ein vollverbundener Layer, der die Ausgabe der letzten versteckten Schicht in eine Dimension von `num_classes` transformiert, was der Anzahl der verschiedenen Klassen entspricht, die im Handgestenerkennungssystem unterschieden werden sollen (in diesem Fall 24 Klassen).
+     - **Aktivierungsfunktion**: In der Ausgabeschicht wird keine Aktivierungsfunktion angewendet. Stattdessen gibt der Layer Rohwerte oder Logits aus, die später in der Verlustberechnung durch die Softmax-Funktion (implizit in der Crossentropy-Verlustfunktion) in Wahrscheinlichkeiten umgewandelt werden.
+
+#### 4. **Zusammenfassung des Modells:**
+   - **Modelltyp**: Mehrschichtiges Perzeptron (MLP)
+   - **Architektur**:
+     - **Eingabe**: 63 Features
+     - **Versteckte Schicht 1**: 128 Neuronen, ReLU-Aktivierung
+     - **Versteckte Schicht 2**: 128 Neuronen, ReLU-Aktivierung
+     - **Ausgabe**: `num_classes` (24 Klassen)
+   - **Gesamtzahl der Parameter**:
+     - Die Anzahl der Parameter kann durch die Formel für vollverbundene Schichten berechnet werden: \( \text{Parameter} = (\text{Eingangsgröße} \times \text{Ausgangsgröße}) + \text{Ausgangsgröße} \).
+     - Für `fc1`: \( (63 \times 128) + 128 = 8128 \)
+     - Für `fc2`: \( (128 \times 128) + 128 = 16512 \)
+     - Für `fc3`: \( (128 \times 24) + 24 = 3104 \)
+     - Insgesamt: \( 8128 + 16512 + 3104 = 27844 \) Parameter
+
+### Modell Training und Evaluation
+
+- **Training**:
+  - Der Trainingsprozess verwendet die Crossentropy-Verlustfunktion (`nn.CrossEntropyLoss`) und den Adam-Optimierer (`optim.Adam`). Der Optimierer aktualisiert die Modellparameter basierend auf dem Gradienten des Verlusts, der durch Backpropagation berechnet wird.
+
+- **Evaluation**:
+  - Die Leistung des Modells wird während des Trainings auf einem Validierungsdatensatz bewertet, um die Genauigkeit des Modells zu überwachen und Überanpassung (Overfitting) zu verhindern.
+
 ## Ergebnisse
 
 Accuracy: 99,05%  
