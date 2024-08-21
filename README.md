@@ -20,9 +20,9 @@ python signing_bee.py
 
 Application shortcuts
 ```
-'z'   - quits the application
-'j'   - toggles visualizing the hand-landmarks
-'esc' - toggles full screen
+'z'   - Beendet die Anwendung
+'j'   - Visualisierung der Hand Landmarks an- / ausschalten
+'esc' - Vollbild an- / ausschalten
 ```
 
 ## How to use
