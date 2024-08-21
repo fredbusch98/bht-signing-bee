@@ -9,7 +9,7 @@ pip install mediapipe
 pip install pillow
 pip install opencv-python
 pip install torch
-pip install scikit-learn ### only needed if you want to train or evaluate the model
+pip install scikit-learn
 ```
 
 Navigate to the 'src' folder and start the application
