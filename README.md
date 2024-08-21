@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Install the following python packages: mediapipe, pillow, opencv-python, torch, scikit-learn (only needed if you want to train or evaluate the model)
+Folgende python packages müssen installiert werden: mediapipe, pillow, opencv-python, torch, scikit-learn (wird nur benötigt, wenn das Modell neu trainiert oder evaluiert werden soll)
 
 ```bat
 pip install mediapipe
@@ -12,7 +12,7 @@ pip install torch
 pip install scikit-learn
 ```
 
-Navigate to the 'src' folder and start the application
+Navigiere zum Ordner „src“ und starte die Anwendung
 ```bat
 cd src
 python signing_bee.py
