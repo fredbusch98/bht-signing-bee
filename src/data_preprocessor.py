@@ -3,6 +3,14 @@ import mediapipe as mp
 import os
 import csv
 
+####
+# This script preprocesses the data coming from those 2 datasets: 
+# https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset (for the training data) and https://www.kaggle.com/datasets/grassknoted/asl-alphabet?select=asl_alphabet_train (for the test data)
+# It tries to detect hand_landmarks in every image of the data set and writes them into a CSV file with the respective letter label as the prefix in the first column.
+# Depending on the dataset, the CSV file will be called hand_landmarks_train.csv or hand_landmarks_test.csv. This needs to bet set manually before starting the script.
+# NOTE: The data sets need to be downloaded and added to the project locally! They are not added to the git repository because they are multiple gigabytes of size.
+####
+
 # Initialize MediaPipe Hands and Drawing utilities
 mp_hands = mp.solutions.hands
 
@@ -17,10 +25,10 @@ missing_landmark_counter = 0
 landmark_counter = 0
 
 # Define the path to the folder containing the dataset (switch between train and test in name depending on what you want to generate)
-asl_alphabet_train_path = "../resources/ASL_Alphabet_Dataset/asl_alphabet_train"
+asl_alphabet_train_path = "../resources/data/ASL_Alphabet_Dataset/asl_alphabet_train"
 
 # Define the output CSV file path (switch between train and test in name depending on what you want to generate)
-output_csv_path = "hand_landmarks_train.csv"
+output_csv_path = "../resources/data/hand_landmarks_train.csv"
 
 # Initialize MediaPipe Hands
 with mp_hands.Hands(static_image_mode=True, max_num_hands=1, min_detection_confidence=0.5) as hands:

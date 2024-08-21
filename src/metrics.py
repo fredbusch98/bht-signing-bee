@@ -10,6 +10,11 @@ from sklearn.metrics import roc_auc_score, roc_curve, auc
 from sklearn.preprocessing import label_binarize
 from itertools import cycle
 
+####
+# This script calculates the following metrics for our hand gesture recognition model: 
+# Accuracy, Precision, Recall, F1-Score, the Confusion Matrix and the ROC_AUC curve.
+####
+
 # Define the list of letter labels
 letters = [
     'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
@@ -32,7 +37,7 @@ class HandGestureMLP(nn.Module):
         return x
 
 # Load the dataset
-test_df = pd.read_csv('hand_landmarks_test.csv')
+test_df = pd.read_csv('../resources/data/hand_landmarks_test.csv')
 
 # Split the data into features and labels
 X_test = test_df.iloc[:, 1:].values.astype(np.float32)

@@ -7,6 +7,10 @@ import torch.optim as optim
 import torch.nn.functional as F
 import joblib
 
+####
+# This script trains and saves our hand gesture recognition model using the beforehand pre-processed hand landmarks data.
+####
+
 model_version = 2
 
 # Dataset class to load the hand landmarks data from CSV
@@ -53,7 +57,7 @@ class HandGestureMLP(nn.Module):
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Load the dataset
-dataset = HandLandmarksDataset('hand_landmarks_train.csv')
+dataset = HandLandmarksDataset('../resources/data/hand_landmarks_train.csv')
 
 # Split into training and validation sets
 train_size = int(0.8 * len(dataset))
