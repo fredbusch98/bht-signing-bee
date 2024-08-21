@@ -47,7 +47,23 @@ Resources:
 * [5] tkinter - https://docs.python.org/3/library/tkinter.html
 
 ## Neuer Datensatz
-Im Zuge der Entwicklung des Projektes unter Verwendung des zuvor genannten Datensatzes sind einige Probleme aufgetreten. Die Ergebnisse die wir mit dem Sign Language MNIST erzielen konnten waren für unsere Ansprüche nicht genügend. Es gab viele Verwechslungen bei der Erkennung und die Qualität der Erkennung war extrem abhängig von Lichtverhältnissen, so wie der Hintergrundfarbe im Webcam-Frame. Diese Probleme kamen höchstwahrscheinlich dadurch zustande, das beim Sign Language MNIST rudimentäre globale Deskriptoren (28x28 Graustufen Bilder) zum Training des Models und zur späteren Erkennung der Gesten verwendet werden. Aus diesem Grund haben wir uns schlussendlich dazu entschieden einen neuen Datensatz zu verwenden und außerdem das Feature von MediaPipe zuer Erkennung von sogenannten Hand Landmarks für das Training und die Erkennung zu verwenden. Pro Hand gibt es 21 Hand Landmarks die jweils aus normalisierten X, Y und Z Koordinaten bestehen.
+Das Projektteam hat festgestellt, dass die Ergebnisse mit dem Sign Language MNIST-Datensatz nicht den Anforderungen entsprochen haben. Die Hauptprobleme lagen in der hohen Fehleranfälligkeit bei der Erkennung und der Abhängigkeit der Erkennungsqualität von Lichtverhältnissen und Hintergrundfarbe im Webcam-Frame. Diese Schwierigkeiten können auf die Verwendung von globalen Deskriptoren, in Form von 28x28 Graustufenbildern, zurückgeführt werden. Diese Bilder bieten nur eine begrenzte Menge an Informationen für die Erkennung und unterscheiden sich möglicherweise nicht ausreichend bei variierenden Bedingungen.
+
+Aufgrund dieser Einschränkungen haben wir uns entschieden, einen neuen Datensatz zu verwenden und das Feature von MediaPipe zur Erkennung von Hand-Landmarks einzuführen. Bei diesem Ansatz verwenden wir 21 Hand-Landmarks pro Hand, wobei jeder Landmark durch normalisierte X-, Y- und Z-Koordinaten beschrieben wird. Dieser Wechsel ermöglicht es uns, von den globalen Deskriptoren der 28x28 Graustufenbilder auf detailliertere lokale Features umzusteigen.
+
+**Mathematische Erklärung der lokalen Features:**
+
+Für jede Hand werden 21 Hand-Landmarks erkannt. Jeder dieser Landmarks besteht aus 3 Koordinaten (X, Y, Z). Daher können wir die Anzahl der lokalen Features wie folgt berechnen:
+
+- Anzahl der Hand-Landmarks pro Hand: 21
+- Anzahl der Koordinaten pro Landmark: 3
+
+Die Gesamtanzahl der lokalen Features pro Hand ist daher:
+
+\[ \text{Gesamtanzahl der lokalen Features} = \text{Anzahl der Hand-Landmarks} \times \text{Anzahl der Koordinaten pro Landmark} \]
+\[ \text{Gesamtanzahl der lokalen Features} = 21 \times 3 = 63 \]
+
+Also besteht jede Handrepräsentation aus 63 lokalen Features (Koordinaten), die verwendet werden können, um die Handgesten zu erkennen. Dies bietet eine viel detailliertere und spezifischere Beschreibung der Handposition und -bewegung im Vergleich zu den ursprünglichen globalen Deskriptoren.
 
 Für die Entwicklung und das Training unseres Modells haben wir zwei Datensätze verwendet:
 
