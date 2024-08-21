@@ -79,19 +79,19 @@ Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, impleme
 
 ### Architektur des HandGestureMLP-Modells
 
-#### 1. **Eingabeschicht:**
-   - **`input_size=63`**: Die Eingabeschicht erwartet einen Eingabefeature-Vektor mit 63 Merkmalen. Diese Merkmale stammen aus den vorverarbeiteten Handlandmark-Daten. Jeder Vektor stellt die Merkmale eines Handbildes oder einer Handgeste dar, wobei jedes Merkmal die Position eines bestimmten Punktes auf der Hand repräsentiert.
+#### 1. **Input Layer:**
+   - **`input_size=63`**: Das Input Layer erwartet einen Eingabefeature-Vektor mit 63 Merkmalen. Diese Merkmale stammen aus den vorverarbeiteten Handlandmark-Daten. Jeder Vektor stellt die Merkmale eines Handbildes oder einer Handgeste dar, wobei jedes Merkmal die Position eines bestimmten Punktes auf der Hand repräsentiert.
 
-#### 2. **Versteckte Schichten:**
-   - **`fc1`**: Die erste versteckte Schicht (`fc1`) ist ein vollverbundener Layer (`nn.Linear(input_size, hidden_size)`). Sie hat 128 Neuronen (`hidden_size`) und ist für die Umwandlung der Eingabefeatures in eine höherdimensionale Repräsentation verantwortlich.
+#### 2. **Hidden Layers:**
+   - **`fc1`**: Das erste hidden Layer (`fc1`) ist ein vollverbundenes Layer (`nn.Linear(input_size, hidden_size)`). Es hat 128 Neuronen (`hidden_size`) und ist für die Umwandlung der Eingabefeatures in eine höherdimensionale Repräsentation verantwortlich.
      - **Aktivierungsfunktion**: Nach der Linearen Transformation wird die ReLU-Aktivierungsfunktion (`F.relu`) angewendet, die nicht-lineare Beziehungen in den Daten modellieren kann.
      
-   - **`fc2`**: Die zweite versteckte Schicht (`fc2`) ist ebenfalls ein vollverbundener Layer, der die Ausgabe der ersten versteckten Schicht auf eine weitere höhere Dimension transformiert, wieder mit 128 Neuronen.
+   - **`fc2`**: Das zweite hidden Layer (`fc2`) ist ebenfalls ein vollverbundenes Layer, das die Ausgabe des ersten hideen Layer auf eine weitere höhere Dimension transformiert, wieder mit 128 Neuronen.
      - **Aktivierungsfunktion**: Auch hier wird die ReLU-Aktivierungsfunktion verwendet, um nicht-lineare Beziehungen zu modellieren.
 
-#### 3. **Ausgabeschicht:**
-   - **`fc3`**: Die Ausgabeschicht (`fc3`) ist ein vollverbundener Layer, der die Ausgabe der letzten versteckten Schicht in eine Dimension von `num_classes` transformiert, was der Anzahl der verschiedenen Klassen entspricht, die im Handgestenerkennungssystem unterschieden werden sollen (in diesem Fall 24 Klassen).
-     - **Aktivierungsfunktion**: In der Ausgabeschicht wird keine Aktivierungsfunktion angewendet. Stattdessen gibt der Layer Rohwerte oder Logits aus, die später in der Verlustberechnung durch die Softmax-Funktion (implizit in der Crossentropy-Verlustfunktion) in Wahrscheinlichkeiten umgewandelt werden.
+#### 3. **Output Layer:**
+   - **`fc3`**: Das Output Layer (`fc3`) ist ein vollverbundenes Layer, der die Ausgabe des letzten hidden Layer in eine Dimension von `num_classes` transformiert, was der Anzahl der verschiedenen Klassen entspricht, die im Handgestenerkennungssystem unterschieden werden sollen (in diesem Fall 24 Klassen).
+     - **Aktivierungsfunktion**: Im Output Layer wird keine Aktivierungsfunktion angewendet. Stattdessen gibt das Layer Rohwerte oder Logits aus, die später in der Verlustberechnung durch die Softmax-Funktion (implizit in der Crossentropy-Verlustfunktion) in Wahrscheinlichkeiten umgewandelt werden.
 
 #### 4. **Zusammenfassung des Modells:**
    - **Modelltyp**: Mehrschichtiges Perzeptron (MLP)
