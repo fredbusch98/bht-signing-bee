@@ -142,7 +142,7 @@ Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebä
 
 ## Download Links
 
-* [Google Drive](https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing) - Vorverarbeitete Hand Landmark Datenpunkte (Training / Test)
+* [Google Drive](https://drive.google.com/file/d/1GXR1OaFz8m6Fr7Jr_kn6Rcu5YOq5W-Jz/view?usp=sharing) - Vorverarbeitete Hand Landmark Datenpunkte (Training / Test)
 
 * [ASL (American Sign Language) Alphabet Dataset](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset) - Trainingsbilder
 
