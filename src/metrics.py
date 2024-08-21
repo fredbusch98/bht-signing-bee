@@ -130,7 +130,7 @@ plt.yticks(fontsize=12)
 plt.xlabel('Predicted Label', fontsize=14)
 plt.ylabel('True Label', fontsize=14)
 
-plt.savefig('confusion_matrix.jpg', bbox_inches='tight')
+plt.savefig('../resources/results/confusion_matrix.jpg', bbox_inches='tight')
 plt.show()
 
 # Binarize the labels for ROC calculation
@@ -165,5 +165,5 @@ plt.title('Receiver Operating Characteristic (Multi-class)', fontsize=16)
 plt.legend(loc="lower right", fontsize=12)
 plt.grid(True)  # Add grid lines for better readability
 plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
-plt.savefig('roc_auc_curve.jpg', bbox_inches='tight')
+plt.savefig('../resources/results/roc_auc_curve.jpg', bbox_inches='tight')
 plt.show()
