@@ -130,6 +130,13 @@ Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, impleme
 
 <img src="resources/results/roc_auc_curve.jpg" alt="ROC_AUC Kurve" width="600" height="600">
 
+Zum Vergleich sind hier noch einmal die Metriken des Modells, welches mit dem Sign Language MNIST trainiert wurde:
+Accuracy: **95,73%**
+Precision: **95,70%**
+Recall: **95,31%**
+F1-Score: **95,28%**
+Diese Werte scheinen auch recht hoch, in der tatsächlichen Nutzen haben sie sich jedoch nicht wieder gespiegelt. Hier wurden viele Buchstaben wie bereits erwähnt nur schwer erkannt und bei geringsten Veränderungen der Umgebungsverhältnisse wurde die Erkennung teilweise nahezu unmöglich. Das die Werte dennoch so *gut* ausgefallen sind hängt vermutlich damit zusammen, dass der Testdatensatz beim Sign Language MNIST bei sehr ähnlichen Lichtverhältnissen und Hintergrundbedingungen aufgenommen wurde, wie der Trainingsdatensatz, was dazuführt, das bei der Eavluierung die zuvor genannten Probleme nicht auffallen.
+
 ## Download Links
 
 * [Google Drive](https://drive.google.com/file/d/1EIZTrGiA6iRfyixYQjb6vpjJg2vGGb0p/view?usp=sharing) - Vorverarbeitete Hand Landmark Datenpunkte (Training / Test)
