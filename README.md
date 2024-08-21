@@ -26,7 +26,7 @@ Application shortcuts
 ```
 
 ## How to use
-You need a Webcam to use this software! After starting the application shows a list of words. They need to be spelled out in front of the webcam using the American Sign Language. To help users that are not familiar with the ASL Alphabet there is a helper image present in the UI that shows the required gesture. If in some case a letter won't be recognized and you want to move on to the next one, we implemented keyboard support aswell, so you can skip letters.
+You need a webcam to use this software! After starting the application it shows a word from a pre set list of words. They need to be spelled out in front of the webcam using the American Sign Language. To help users that are not familiar with the ASL Alphabet there is a helper image present in the UI that shows the currently required gesture. If in some case a letter won't be recognized and you want to move on to the next one, we implemented keyboard support aswell, so you can skip letters.
 
 
 ## Exposé - Signing Bee
