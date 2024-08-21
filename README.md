@@ -22,7 +22,7 @@ Application shortcuts
 ```
 'z'   - Beendet die Anwendung
 'j'   - Visualisierung der Hand Landmarks an- / ausschalten
-'esc' - Vollbild an- / ausschalten
+'esc' - Vollbildmodus an- / ausschalten
 ```
 
 ## How to use
