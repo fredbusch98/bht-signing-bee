@@ -199,9 +199,8 @@ class HandTrackingApp:
                         cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), self.bbox_color, 2)
 
                     # Draw the recognized gesture as text above the bbox
-                    if hasattr(self, 'recognized_gesture_text') and self.recognized_gesture_text:
-                        text_position = (bbox[0], bbox[1] - 10)
-                        cv2.putText(frame, self.recognized_gesture_text, text_position, cv2.FONT_HERSHEY_SIMPLEX, 1, self.bbox_color, 2)
+                    text_position = (bbox[0], bbox[1] - 10)
+                    cv2.putText(frame, self.recognized_gesture_text, text_position, cv2.FONT_HERSHEY_SIMPLEX, 1, self.bbox_color, 2)
 
             img = Image.fromarray(frame)
             imgtk = ImageTk.PhotoImage(image=img)
