@@ -117,10 +117,10 @@ Um sicherzustellen, dass die Trainingsdaten gleichmäßig verteilt sind, impleme
 
 ## Ergebnisse
 
-Accuracy: 99,05%  
-Precision: 99,00%  
-Recall: 98,99%  
-F1-Score: 98,98%
+**Accuracy**: 99,05%  
+**Precision**: 99,00%  
+**Recall**: 98,99%  
+**F1-Score**: 98,98%
 
 ### Confusion Matrix
 
