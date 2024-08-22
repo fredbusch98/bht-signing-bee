@@ -118,10 +118,10 @@ Wir haben uns, anders als im Kapitel `Idee` beschrieben, gegen ein Convolutional
 
 ## Ergebnisse
 
-* Accuracy: **98,93%%**  
-* Precision: **98,82%%**
-* Recall: **98,87%**
-* F1-Score: **98,84%**
+* Accuracy: **99,80%%**  
+* Precision: **99,79%%**
+* Recall: **99,79%**
+* F1-Score: **99,79%**
 
 ### Confusion Matrix
 
