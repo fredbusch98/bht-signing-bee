@@ -12,8 +12,8 @@ import joblib
 # The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
 ####
 
-model_version = 3 # 4, 5, 6
-num_epochs = 50 # 100, 150, 200
+model_version = 6
+num_epochs = 200
 
 # Dataset class to load the hand landmarks data from CSV
 class HandLandmarksDataset(Dataset):

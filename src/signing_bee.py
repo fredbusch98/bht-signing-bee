@@ -13,7 +13,7 @@ import warnings
 # Suppress specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="google.protobuf")
 
-model_version = 2
+model_version = 6
 word_list_name = "words"
 
 def get_quadratic_bbox_coordinates_with_padding(handLandmark, image_shape, padding=15):
@@ -238,7 +238,7 @@ class HandTrackingApp:
                 self.canProcess = False
                 self.recognized_gesture_text = recognized_gesture.upper()  # Store recognized gesture for display
                 cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), self.bbox_color, 2)
-                self.root.after(2000, self.clear_last_input_and_proceed)
+                self.root.after(1000, self.clear_last_input_and_proceed)
             else:
                 self.last_input_label.config(text=recognized_gesture.upper(), fg="red")
                 self.bbox_color = (255, 0, 0)  # Set bbox color to red

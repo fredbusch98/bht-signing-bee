@@ -9,14 +9,15 @@ from sklearn.metrics import precision_score, recall_score, f1_score, confusion_m
 from sklearn.metrics import roc_auc_score, roc_curve, auc
 from sklearn.preprocessing import label_binarize
 from itertools import cycle
+import joblib
 
 ####
 # This script calculates the following metrics for our hand gesture recognition model: 
-# Accuracy, Precision, Recall, F1-Score, the Confusion Matrix and the ROC_AUC curve.
-# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
+# Accuracy, Precision, Recall, F1-Score, the Confusion Matrix, and the ROC_AUC curve.
+# The preprocessed data (train/test) needs to be downloaded and added to the project locally before starting the script. The download link can be found in the README.md
 ####
 
-model_version = 2
+model_version = 6
 
 # Define the list of letter labels
 letters = [
@@ -47,7 +48,6 @@ X_test = test_df.iloc[:, 1:].values.astype(np.float32)
 y_test = test_df.iloc[:, 0].values
 
 # Load the LabelEncoder
-import joblib
 label_encoder = joblib.load(f'../resources/models/label_encoder_hand_landmark_model_{model_version}.pkl')
 num_classes = len(label_encoder.classes_)
 
@@ -110,10 +110,18 @@ recall = recall_score(all_labels, all_predictions, average='macro')
 f1 = f1_score(all_labels, all_predictions, average='macro')
 accuracy = correct / total
 
+# Print metrics to console
 print(f'Accuracy: {accuracy:.4f}')
 print(f'Precision: {precision:.4f}')
 print(f'Recall: {recall:.4f}')
 print(f'F1-Score: {f1:.4f}')
+
+# Save metrics to a text file
+with open(f'../resources/results/metrics_{model_version}.txt', 'w') as f:
+    f.write(f'Accuracy: {accuracy:.4f}\n')
+    f.write(f'Precision: {precision:.4f}\n')
+    f.write(f'Recall: {recall:.4f}\n')
+    f.write(f'F1-Score: {f1:.4f}\n')
 
 # Calculate the confusion matrix
 cm = confusion_matrix(all_labels, all_predictions)
@@ -130,7 +138,7 @@ plt.yticks(fontsize=12)
 plt.xlabel('Predicted Label', fontsize=14)
 plt.ylabel('True Label', fontsize=14)
 
-plt.savefig('../resources/results/confusion_matrix.jpg', bbox_inches='tight')
+plt.savefig(f'../resources/results/confusion_matrix_{model_version}.jpg', bbox_inches='tight')
 plt.show()
 
 # Binarize the labels for ROC calculation
@@ -165,5 +173,5 @@ plt.title('Receiver Operating Characteristic (Multi-class)', fontsize=16)
 plt.legend(loc="lower right", fontsize=12)
 plt.grid(True)  # Add grid lines for better readability
 plt.subplots_adjust(left=0.1, right=0.9, top=0.9, bottom=0.1)
-plt.savefig('../resources/results/roc_auc_curve.jpg', bbox_inches='tight')
+plt.savefig(f'../resources/results/roc_auc_curve_{model_version}.jpg', bbox_inches='tight')
 plt.show()
