@@ -10,6 +10,11 @@ import numpy as np
 import joblib
 import warnings
 
+####
+# This script handles the gesture recognition with our trained model.
+# Also the UI is setup, handled and updated.
+####
+
 # Suppress specific warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="google.protobuf")
 

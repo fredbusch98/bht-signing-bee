@@ -1,6 +1,12 @@
 import csv
 from collections import Counter
 
+####
+# This script counts the number of occurrences of each label in the provided CSV file. 
+# The preprocessed data (train / test) needs to be downloaded and added to the project locally before starting the script.
+# The download link can be found in the README.md
+####
+
 def count_labels(csv_file_path):
     # Use the provided list of letters for indexing
     letters = [
