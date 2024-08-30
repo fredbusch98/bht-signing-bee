@@ -144,18 +144,16 @@ Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebä
 
 Unsere Anwendung zur Gebärdenspracherkennung baut auf bewährten Ansätzen im Bereich der Handverfolgung und Fingerspelling-Erkennung auf. Dabei haben wir uns von zwei zentralen Arbeiten inspirieren lassen.
 
-Das Paper von **Byeongkeun Kang et al. (2015)** beschreibt die Echtzeit-Erkennung des ASL-Fingerspelling-Alphabets mithilfe von Convolutional Neural Networks (CNNs) und Tiefenbildern. Ihr Ansatz nutzt Depth Maps, um Handgesten auch unter schwierigen Bedingungen, wie unterschiedlichen Lichtverhältnissen oder Hautfarben, präzise zu erkennen. Durch den Einsatz von Tiefensensoren erreicht ihr System eine beeindruckende Erkennungsgenauigkeit, insbesondere bei bekannten Nutzern, und bleibt auch bei neuen Nutzern robust. Dieser Ansatz zeigt, wie zusätzliche Tiefeninformationen die Genauigkeit der Gestenerkennung verbessern können.
+Das Paper von **[1]Byeongkeun Kang et al. (2015)** beschreibt die Echtzeit-Erkennung des ASL-Fingerspelling-Alphabets mithilfe von Convolutional Neural Networks (CNNs) und Tiefenbildern. Ihr Ansatz nutzt Depth Maps, um Handgesten auch unter schwierigen Bedingungen, wie unterschiedlichen Lichtverhältnissen oder Hautfarben, präzise zu erkennen. Durch den Einsatz von Tiefensensoren erreicht ihr System eine beeindruckende Erkennungsgenauigkeit, insbesondere bei bekannten Nutzern, und bleibt auch bei neuen Nutzern robust. Dieser Ansatz zeigt, wie zusätzliche Tiefeninformationen die Genauigkeit der Gestenerkennung verbessern können.
 
-Im Gegensatz dazu verwenden wir in unserer Anwendung MediaPipe Hands, wie es im Paper von **Fan Zhang et al. (2020)** vorgestellt wird. MediaPipe Hands ermöglicht die Erkennung von Handgesten in Echtzeit mithilfe von 21 Hand-Landmarks und funktioniert dabei nur mit einer herkömmlichen Webcam, ohne dass spezialisierte Hardware wie Tiefensensoren erforderlich ist. Dies macht unsere Lösung kostengünstiger und breiter zugänglich, da sie auf gängigen Geräten läuft und keine speziellen Anforderungen an die Hardware stellt.
+Im Gegensatz dazu verwenden wir in unserer Anwendung MediaPipe Hands, wie es im Paper von **[2]Fan Zhang et al. (2020)** vorgestellt wird. MediaPipe Hands ermöglicht die Erkennung von Handgesten in Echtzeit mithilfe von 21 Hand-Landmarks und funktioniert dabei nur mit einer herkömmlichen Webcam, ohne dass spezialisierte Hardware wie Tiefensensoren erforderlich ist. Dies macht unsere Lösung kostengünstiger und breiter zugänglich, da sie auf gängigen Geräten läuft und keine speziellen Anforderungen an die Hardware stellt.
 
 Während Kang et al. auf Tiefensensoren setzen, um die Erkennung zu optimieren, verfolgt unser Ansatz einen flexibleren und zugänglicheren Weg durch die Nutzung von RGB-Bildern und der leistungsfähigen Hand-Landmark-Erkennung von MediaPipe. Beide Ansätze zielen darauf ab, die Genauigkeit der Gebärdenspracherkennung zu maximieren, doch wir haben uns für eine Technologie entschieden, die leichter in verschiedene Anwendungen integriert werden kann und weniger spezialisierte Hardware erfordert.
 
-
-* [Byeongkeun Kang et al. (2015)](https://arxiv.org/pdf/1509.03001) - Real-time Sign Language Fingerspelling Recognition using
+[1][Byeongkeun Kang et al. (2015)](https://arxiv.org/pdf/1509.03001) - Real-time Sign Language Fingerspelling Recognition using
 Convolutional Neural Networks from Depth map (University of California, San Diego)
 
-
-* [Fan Zhang et al. (2020)](https://arxiv.org/pdf/2006.10214) - MediaPipe Hands: On-device Real-time Hand Tracking (Google Research Team)
+[2][Fan Zhang et al. (2020)](https://arxiv.org/pdf/2006.10214) - MediaPipe Hands: On-device Real-time Hand Tracking (Google Research Team)
 
 
 ## Download Links
