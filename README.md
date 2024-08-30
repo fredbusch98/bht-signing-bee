@@ -152,11 +152,10 @@ Während Kang et al. auf Tiefensensoren setzen, um die Erkennung zu optimieren, 
 
 
 * [Byeongkeun Kang et al. (2015)](https://arxiv.org/pdf/1509.03001) - Real-time Sign Language Fingerspelling Recognition using
-Convolutional Neural Networks from Depth map
+Convolutional Neural Networks from Depth map (University of California, San Diego)
 
 
-* [Byeongkeun Kang et al. (2015)](https://arxiv.org/pdf/2006.10214) - Real-time Sign Language Fingerspelling Recognition using
-Convolutional Neural Networks from Depth map 
+* [Fan Zhang et al. (2020)](https://arxiv.org/pdf/2006.10214) - MediaPipe Hands: On-device Real-time Hand Tracking (Google Research Team)
 
 
 ## Download Links
