@@ -140,7 +140,7 @@ Zum Vergleich sind hier noch einmal die Ergebnisse des ersten Modells, welches m
 
 Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebärden haben sie sich jedoch nicht bewährt. Hier wurden viele Buchstaben, wie zuvor bereits erwähnt nur schwer erkannt und bei geringsten Veränderungen der Umgebungsverhältnisse wurde die Erkennung teilweise nahezu unmöglich. Das die Werte dennoch so *gut* ausgefallen sind hängt vermutlich damit zusammen, dass der Testdatensatz beim Sign Language MNIST bei sehr ähnlichen Lichtverhältnissen und Hintergrundbedingungen aufgenommen wurde, wie der Trainingsdatensatz, was dazuführt, das bei der Evaluierung die zuvor genannten Probleme nicht auffallen.
 
-## Related Works
+## Related Work
 
 Unsere Anwendung zur Gebärdenspracherkennung baut auf bewährten Methoden auf, die sich mit der Erkennung von Handgesten und Fingerspelling beschäftigen. Zwei zentrale Arbeiten haben uns dabei inspiriert und bieten einen guten Vergleich zu unserem Ansatz.
 
