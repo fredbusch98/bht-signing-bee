@@ -118,14 +118,18 @@ Wir haben uns, anders als im Kapitel `Idee` beschrieben, gegen ein Convolutional
 
 ## Ergebnisse
 
-* Accuracy: **99,80%%**  
-* Precision: **99,79%%**
+* Accuracy: **99,80%**  
+* Precision: **99,79%**
 * Recall: **99,79%**
 * F1-Score: **99,79%**
+
+Im folgenden haben wir zwei Diagramme, die die vorangestellten Werte kontextualisieren sollen. 
 
 ### Confusion Matrix
 
 <img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
+Wie anhand der Werte zu erkennen ist, ist die Rate der TP extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten doch deutlich unterscheiden.
+Ebenfalls auffällig ist die Diskrepanz zwischen der Anzahl der TPs im Verhältnis zu der Gesamtanzahl bei einigen Labels. Gerade die TP-Rate von M und N, sowie C sind auffällig im Vergleich zum Rest. Während M und N sich wieder mit der Ähnlichkeit der Gesten zueinander erklären lassen, ist die Diskrepanz bei C nicht eindeutig, da diese Geste sich eigentlich gut vom Rest unterscheiden lässt.
 
 ### ROC_AUC Curve
 
