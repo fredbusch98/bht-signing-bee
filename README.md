@@ -61,6 +61,8 @@ Landmarks beschreiben markante Punkte auf einem Bild, die als Referenzpunkte fü
 - Anzahl der Hand-Landmarks pro Hand: 21
 - Anzahl der Koordinaten pro Landmark: 3
 
+<img src="resources/example-images/handlandmarks.jpg" alt="Hand-Landmarks-Darstellung" width="600" height="600">
+
 Die Gesamtanzahl der lokalen Features pro Hand ist daher:
 
 \[ \text{Gesamtanzahl der lokalen Features} = \text{Anzahl der Hand-Landmarks} \times \text{Anzahl der Koordinaten pro Landmark} \]
