@@ -56,7 +56,7 @@ Aufgrund dieser Einschränkungen haben wir uns entschieden, einen neuen Datensat
 
 **Mathematische Erklärung der lokalen Features:**
 
-Landmarks beschreiben markante Punkte auf einem Bild, die als Referenzpunkte für die Analyse dienen. Hand-Landmarks sind spezifische Punkte, die typischerweise an den Gelenken der Finger und dem Handgelenk liegen und verwendet werden, um die Position und Bewegung der Hand zu analysieren, in unserem Fall zur Gestenerkennung. Für jede Hand werden 21 Hand-Landmarks erkannt. Jeder dieser Landmarks besteht aus 3 Koordinaten (X, Y, Z). Daher können wir die Anzahl der lokalen Features wie folgt berechnen:
+Landmarks beschreiben markante Punkte an der erkannten Hand in einem Bild, die als Referenzpunkte für die Analyse dienen. Hand-Landmarks sind spezifische Punkte, die typischerweise an den Fingerspitzen, Gelenken und dem Handgelenk liegen und verwendet werden, um die Position und Bewegung der Hand zu analysieren, in unserem Fall zur Gestenerkennung. Für jede Hand werden 21 Hand-Landmarks erkannt. Jeder dieser Landmarks besteht aus 3 Koordinaten (X, Y, Z). Daher können wir die Anzahl der lokalen Features wie folgt berechnen:
 
 - Anzahl der Hand-Landmarks pro Hand: 21
 - Anzahl der Koordinaten pro Landmark: 3
@@ -145,6 +145,10 @@ Zum Vergleich sind hier noch einmal die Ergebnisse des ersten Modells, welches m
 * F1-Score: **95,28%**
 
 Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebärden haben sie sich jedoch nicht bewährt. Hier wurden viele Buchstaben, wie zuvor bereits erwähnt nur schwer erkannt und bei geringsten Veränderungen der Umgebungsverhältnisse wurde die Erkennung teilweise nahezu unmöglich. Das die Werte dennoch so *gut* ausgefallen sind hängt vermutlich damit zusammen, dass der Testdatensatz beim Sign Language MNIST bei sehr ähnlichen Lichtverhältnissen und Hintergrundbedingungen aufgenommen wurde, wie der Trainingsdatensatz, was dazuführt, das bei der Evaluierung die zuvor genannten Probleme nicht auffallen.
+
+### Model Accuracy / Loss Over Epochs
+<img src="resources/results/model_accuracy.svg" alt="Model Accuracy Over Epochs" width="600" height="600">
+<img src="resources/results/model_loss.svg" alt="Model Loss Over Epochs" width="600" height="600">
 
 ## Related Work
 

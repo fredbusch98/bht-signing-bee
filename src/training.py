@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 import joblib
+import matplotlib.pyplot as plt  # Added for plotting
 
 ####
 # This script trains and saves our hand gesture recognition model using the beforehand preprocessed hand landmarks data.
@@ -75,6 +76,11 @@ model = HandGestureMLP(num_classes=len(dataset.get_label_encoder().classes_)).to
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
+# Lists to store accuracy and loss values for plotting
+train_losses = []
+train_accuracies = []
+val_accuracies = []
+
 # Training loop
 for epoch in range(num_epochs):
     model.train()
@@ -103,6 +109,9 @@ for epoch in range(num_epochs):
         correct += (predicted == labels).sum().item()
 
     train_accuracy = 100 * correct / total
+    train_losses.append(total_loss / len(train_loader))
+    train_accuracies.append(train_accuracy)
+
     print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {total_loss/len(train_loader):.4f}, Accuracy: {train_accuracy:.2f}%')
 
     # Validation
@@ -120,7 +129,27 @@ for epoch in range(num_epochs):
             correct += (predicted == labels).sum().item()
 
     val_accuracy = 100 * correct / total
+    val_accuracies.append(val_accuracy)
     print(f'Validation Accuracy: {val_accuracy:.2f}%')
+
+# Plotting the training loss
+plt.figure()
+plt.plot(range(1, num_epochs + 1), train_losses, label='Training Loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.title('Model Loss Over Epochs')
+plt.legend()
+plt.savefig(f'../resources/results/model_loss_{model_version}.svg')  # Save loss figure as .svg
+
+# Plotting the training and validation accuracy
+plt.figure()
+plt.plot(range(1, num_epochs + 1), train_accuracies, label='Training Accuracy')
+plt.plot(range(1, num_epochs + 1), val_accuracies, label='Validation Accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Accuracy (%)')
+plt.title('Model Accuracy Over Epochs')
+plt.legend()
+plt.savefig(f'../resources/results/model_accuracy_{model_version}.svg')  # Save accuracy figure as .svg
 
 # Save the LabelEncoder
 label_encoder = dataset.get_label_encoder()
