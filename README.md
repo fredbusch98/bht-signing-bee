@@ -135,7 +135,7 @@ Wie anhand der Werte zu erkennen ist, ist die Rate der TP extrem hoch und die th
 ### ROC_AUC Curve
 
 <img src="resources/results/roc_auc_curve.jpg" alt="ROC_AUC Kurve" width="600" height="600">
-Trotz der hohen Werte für Accuracy, Precision, Recall und dem F1-Score ist es auffällig, dass der AUC-Wert für alle Werte gleich 1.00 ist. Dies würde aussagen, dass das Modell in 100% der Fälle den richtigen Buchstaben erkennt, was mithilfe der Konfusionsmatrix widerlegt werden kann. Wir vermuten einen Rundungsfehler bei der Berechnung, konnten aber während der Projektzeit keine Lösung dafür finden.
+Trotz der hohen Werte für Accuracy, Precision, Recall und dem F1-Score ist es auffällig, dass der AUC-Wert für alle Werte gleich 1.00 ist. Dies würde aussagen, dass das Modell in 100% der Fälle den richtigen Buchstaben erkennt, was mithilfe der Konfusionsmatrix widerlegt werden kann. Wir vermuten einen Rundungsfehler bei der Berechnung, konnten aber während der Projektzeit keine Lösung oder eindeutige Erklärung dafür finden.
 
 ### Ergebnisse Sign Language MNIST
 Zum Vergleich sind hier noch einmal die Ergebnisse des ersten Modells, welches mit dem Sign Language MNIST trainiert wurde:
