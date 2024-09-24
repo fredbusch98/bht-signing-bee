@@ -131,11 +131,11 @@ Im folgenden haben wir zwei Diagramme, die die vorangestellten Werte kontextuali
 
 <img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
 Wie anhand der Werte zu erkennen ist, ist die Rate der TP extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten doch deutlich unterscheiden.
-Ebenfalls auffällig ist die Diskrepanz zwischen der Anzahl der TPs im Verhältnis zu der Gesamtanzahl bei einigen Labels. Gerade die TP-Rate von M und N, sowie C sind auffällig im Vergleich zum Rest. Während M und N sich wieder mit der Ähnlichkeit der Gesten zueinander erklären lassen, ist die Diskrepanz bei C nicht eindeutig, da diese Geste sich eigentlich gut vom Rest unterscheiden lässt.
 
 ### ROC_AUC Curve
 
 <img src="resources/results/roc_auc_curve.jpg" alt="ROC_AUC Kurve" width="600" height="600">
+Trotz der hohen Werte für Accuracy, Precision, Recall und dem F1-Score ist es auffällig, dass der AUC-Wert für alle Werte gleich 1.00 ist. Dies würde aussagen, dass das Modell in 100% der Fälle den richtigen Buchstaben erkennt, was mithilfe der Konfusionsmatrix widerlegt werden kann. Wir vermuten einen Rundungsfehler bei der Berechnung, konnten aber während der Projektzeit keine Lösung dafür finden.
 
 ### Ergebnisse Sign Language MNIST
 Zum Vergleich sind hier noch einmal die Ergebnisse des ersten Modells, welches mit dem Sign Language MNIST trainiert wurde:
@@ -147,8 +147,15 @@ Zum Vergleich sind hier noch einmal die Ergebnisse des ersten Modells, welches m
 Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebärden haben sie sich jedoch nicht bewährt. Hier wurden viele Buchstaben, wie zuvor bereits erwähnt nur schwer erkannt und bei geringsten Veränderungen der Umgebungsverhältnisse wurde die Erkennung teilweise nahezu unmöglich. Das die Werte dennoch so *gut* ausgefallen sind hängt vermutlich damit zusammen, dass der Testdatensatz beim Sign Language MNIST bei sehr ähnlichen Lichtverhältnissen und Hintergrundbedingungen aufgenommen wurde, wie der Trainingsdatensatz, was dazuführt, das bei der Evaluierung die zuvor genannten Probleme nicht auffallen.
 
 ### Model Accuracy / Loss Over Epochs
+Im Folgenden sind noch einmal zwei Diagramme zu sehen, die zum einen den Model-Loss und zum anderen die Model-Accuracy über die Trainingsepochenzeigen.
+
 <img src="resources/results/model_accuracy.svg" alt="Model Accuracy Over Epochs" width="600" height="600">
+Bei der Accuracy ist ein schneller Anstieg zu Beginn des Trainings zu erkenn, der sich nach etwa 50 Epochen stabilisiert. Das Modell scheint also schnell zu lernen sowohl auf den Trainingsdaten, als auch den Validierungsdaten, die korrekte Vorhersage zu treffen. Die leichten Schwankungen zeigen keine großen Unterschiede zu den Trainingsdaten, was darauf hindeutet, dass wir kein starkes Overfitting betrieben haben.
+
 <img src="resources/results/model_loss.svg" alt="Model Loss Over Epochs" width="600" height="600">
+Ebenfalls ist beim Loss ein schneller Abfall des Werts zu erkennen, der sich nach etwa 50 Epochen bei einem konstanten Wert von ungefähr 0.01 stabilisert. Dies deutet auf ein gelunges Training hin, dass dafür gesorgt hat, dass das Modell seine Fehlerrate einigermaßen schnell minimieren und stabilisieren konnte.
+
+Zusammengefasst lässt sich sagen, dass das Modell einen schnellen Lernprozess durchlaufen hat und bei der Modell-Accuracy keine auffälligen Anzeichen für Overfitting erkennbar sind.
 
 ## Related Work
 
