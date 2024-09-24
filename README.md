@@ -154,7 +154,7 @@ Bei der Accuracy ist ein schneller Anstieg zu Beginn des Trainings zu erkennen, 
 
 <img src="resources/results/model_loss.svg" alt="Model Loss Over Epochs" width="600" height="600">
 Ebenfalls ist beim Loss ein schneller Abfall des Werts zu erkennen, der sich nach etwa 50 Epochen bei einem konstanten Wert von ungefähr 0.01 stabilisert. Dies deutet auf ein gelunges Training hin, dass dafür gesorgt hat, dass das Modell seine Fehlerrate einigermaßen schnell minimieren und stabilisieren konnte.
-
+<br><br>
 Zusammengefasst lässt sich sagen, dass das Modell einen schnellen Lernprozess durchlaufen hat. Dieser schnelle Lernprozess, lässt uns vermuten, dass wir das Modell auch mit deutlichen weniger Epochen hätten trainieren können ohne signifikante Leistungseinbußen. Darüber hinaus lassen sich bei der Modell-Accuracy keine auffälligen Anzeichen für Overfitting erkennen.
 
 ## Related Work
