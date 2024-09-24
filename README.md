@@ -150,12 +150,12 @@ Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebä
 Im Folgenden sind noch einmal zwei Diagramme zu sehen, die zum einen den Model-Loss und zum anderen die Model-Accuracy über die Trainingsepochenzeigen.
 
 <img src="resources/results/model_accuracy.svg" alt="Model Accuracy Over Epochs" width="600" height="600">
-Bei der Accuracy ist ein schneller Anstieg zu Beginn des Trainings zu erkenn, der sich nach etwa 50 Epochen stabilisiert. Das Modell scheint also schnell zu lernen sowohl auf den Trainingsdaten, als auch den Validierungsdaten, die korrekte Vorhersage zu treffen. Die leichten Schwankungen zeigen keine großen Unterschiede zu den Trainingsdaten, was darauf hindeutet, dass wir kein starkes Overfitting betrieben haben.
+Bei der Accuracy ist ein schneller Anstieg zu Beginn des Trainings zu erkennen, der sich nach etwa 50 Epochen stabilisiert. Das Modell scheint also schnell zu lernen sowohl auf den Trainingsdaten, als auch den Validierungsdaten, die korrekte Vorhersage zu treffen. Die leichten Schwankungen zeigen keine großen Unterschiede zu den Trainingsdaten, was darauf hindeutet, dass wir kein starkes Overfitting betrieben haben.
 
 <img src="resources/results/model_loss.svg" alt="Model Loss Over Epochs" width="600" height="600">
 Ebenfalls ist beim Loss ein schneller Abfall des Werts zu erkennen, der sich nach etwa 50 Epochen bei einem konstanten Wert von ungefähr 0.01 stabilisert. Dies deutet auf ein gelunges Training hin, dass dafür gesorgt hat, dass das Modell seine Fehlerrate einigermaßen schnell minimieren und stabilisieren konnte.
 
-Zusammengefasst lässt sich sagen, dass das Modell einen schnellen Lernprozess durchlaufen hat und bei der Modell-Accuracy keine auffälligen Anzeichen für Overfitting erkennbar sind.
+Zusammengefasst lässt sich sagen, dass das Modell einen schnellen Lernprozess durchlaufen hat. Dieser schnelle Lernprozess, lässt uns vermuten, dass wir das Modell auch mit deutlichen weniger Epochen hätten trainieren können ohne signifikante Leistungseinbußen. Darüber hinaus lassen sich bei der Modell-Accuracy keine auffälligen Anzeichen für Overfitting erkennen.
 
 ## Related Work
 
