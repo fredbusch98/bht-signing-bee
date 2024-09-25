@@ -141,7 +141,7 @@ Wie anhand der Werte zu erkennen ist, ist die Rate der True Positives (TP) extre
 
 <img src="resources/results/pq.png" alt="Konfusionsmatrix" width="200" height="200">
 
-Das täuscht aber. Sie sehen zwar als Bild anders aus weil die Hand unterschiedlich rotiert ist. Aber die Hand-Landmarks sind relativ also unabhängig von Rotation, d.h. die Gesten sind sich doch recht ähnlich. Nur der Mittelfinger ist beim Q angewinkelt und beim P ist er ausgestreckt.
+Das täuscht aber. Sie sehen zwar als Bild anders aus weil die Hand unterschiedlich rotiert ist. Aber die Hand-Landmarks sind relativ zur Hand also unabhängig von der Rotation der Hand im gesamten Bildkontext, d.h. die Gesten sind sich doch recht ähnlich. Nur der Mittelfinger ist beim Q angewinkelt und beim P ist er ausgestreckt.
 
 ### ROC_AUC Curve
 
