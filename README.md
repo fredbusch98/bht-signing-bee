@@ -40,7 +40,7 @@ Dem Nutzer wird ein zufälliges Wort angezeigt und zusätzlich eine Hilfestellun
 
 Zum Trainieren unseres CNNs verwenden wir den *Sign Language MNIST* Datensatz. Dieser enthält etwa 35.000 28 x 28 Pixel Graustufenbilder von Gebärden des amerikanischen Sign Language Alphabets (27.455 Trainingsbilder, 7172 Testbilder). Der Datensatz schließt die Gebärden für die Buchstaben *J* und *Z* aus, weil diese im Gegensatz zu allen anderen Buchstaben Bewegung erfordern. [1] Eine sinnvolle Erkennung dieser Gebärden ist mit dem Datensatz nicht möglich. Deshalb werden auch wir in unserer Anwendung auf Wörter verzichten, die diese Buchstaben (*J*, *Z*) enthalten.
 
-<img src="resources/results/asl-alphabet.png" alt="Konfusionsmatrix" width="400" height="400">
+<img src="resources/images/asl-alphabet.png" alt="Konfusionsmatrix" width="400" height="400">
 
 Wir werden das Projekt mit Hilfe von OpenCV, MediaPipe, PyTorch und tkinter umsetzen. OpenCV verwenden wir für die Bildverarbeitung, MediaPipe liefert nützliche Funktionen zur Hand-Detection, PyTorch nutzen wir zur Umsetzung unseres CNNs und tkinter für die Erstellung der Benutzeroberfläche. [2] [3] [4] [5]
 
@@ -127,6 +127,10 @@ Zum Vergleich dazu hatte unser vorheriges Modell, ein CNN, das mit dem Sign Lang
 - **Evaluation**:
   - Die Leistung des Modells wird während des Trainings auf einem Validierungsdatensatz bewertet, um die Genauigkeit des Modells zu überwachen und Überanpassung (Overfitting) zu verhindern. Hierfür wird während dem Trainingsprozess der Trainingsdatensatz im Verhältnis 80 (train) zu 20 (val) aufgeteilt. Außerdem gibt es noch ein zusätzliches Skript `metrics.py`, welches weitere Metriken zur Evaluierung unseres Modells berechnet auf Grundlage des im Kapitel zuvor beschriebenen Testdatensatzes: `Accuracy`, `Precision`, `Recall`, `F1-Score`, `Confusion Matrix` und die `ROC_AUC Curve`
 
+### System Overview
+
+<img src="resources/images/overview.png" alt="Konfusionsmatrix" width="2092" height="502">
+
 ## Ergebnisse
 
 ### Metriken
@@ -141,9 +145,14 @@ Im folgenden haben wir zwei Diagramme, die die vorangestellten Werte kontextuali
 ### Confusion Matrix
 
 <img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
+<<<<<<< HEAD
 Wie anhand der Werte zu erkennen ist, ist die Rate der True Positives (TP) extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten in Bildform doch deutlich zu unterscheiden scheinen.
 <br><br>
 <img src="resources/results/pq.png" alt="Konfusionsmatrix" width="200" height="200">
+=======
+Wie anhand der Werte zu erkennen ist, ist die Rate der TP extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten in Bildform doch deutlich zu unterscheiden scheinen.
+<img src="resources/images/pq.png" alt="Konfusionsmatrix" width="200" height="200">
+>>>>>>> 5bfd158 (added system overview image to README)
 
 Das täuscht aber. Sie sehen zwar als Bild anders aus weil die Hand unterschiedlich rotiert ist. Aber die Hand-Landmarks sind relativ zur Hand also unabhängig von der Rotation der Hand im gesamten Bildkontext, d.h. die Gesten sind sich doch recht ähnlich. Nur der Mittelfinger ist beim Q angewinkelt und beim P ist er eher ausgestreckt.
 
