@@ -153,7 +153,7 @@ Das täuscht aber. Sie sehen zwar als Bild anders aus weil die Hand unterschiedl
 Trotz der hohen Werte für Accuracy, Precision, Recall und dem F1-Score ist es auffällig, dass der AUC-Wert für alle Werte gleich 1.00 ist. Dies würde aussagen, dass das Modell in 100% der Fälle den richtigen Buchstaben erkennt, was mithilfe der Konfusionsmatrix widerlegt werden kann. Wir vermuten einen Rundungsfehler bei der Berechnung, konnten aber während der Projektzeit keine Lösung oder eindeutige Erklärung dafür finden.
 
 ### Ergebnisse Sign Language MNIST
-Zum Vergleich sind hier noch einmal die Ergebnisse des ersten Modells, welches mit dem Sign Language MNIST trainiert wurde:
+Zum Vergleich sind hier noch einmal einige Ergebnisse des ersten Modells, welches mit dem Sign Language MNIST trainiert wurde:
 * Accuracy: **95,73%**
 * Precision: **95,70%**
 * Recall: **95,31%**
