@@ -61,14 +61,19 @@ Landmarks beschreiben markante Punkte an der erkannten Hand in einem Bild, die a
 - Anzahl der Hand-Landmarks pro Hand: 21
 - Anzahl der Koordinaten pro Landmark: 3
 
-<img src="resources/example-images/handlandmarks.jpg" alt="Hand-Landmarks-Darstellung" width="600" height="600">
-
 Die Gesamtanzahl der lokalen Features pro Hand ist daher:
 
-\[ \text{Gesamtanzahl der lokalen Features} = \text{Anzahl der Hand-Landmarks} \times \text{Anzahl der Koordinaten pro Landmark} \]
-\[ \text{Gesamtanzahl der lokalen Features} = 21 \times 3 = 63 \]
+$$
+\text{Gesamtanzahl der lokalen Features} = \text{Anzahl der Hand-Landmarks} \times \text{Anzahl der Koordinaten pro Landmark}
+$$
 
-Also besteht jede Handrepräsentation aus 63 lokalen Features (Koordinaten), die verwendet werden können, um die Handgesten zu erkennen. Dies bietet eine viel detailliertere und spezifischere Beschreibung der Handposition und -bewegung im Vergleich zu den ursprünglichen globalen Deskriptoren.
+$$
+\text{Gesamtanzahl der lokalen Features} = 21 \times 3 = 63
+$$
+
+Also besteht jede Handrepräsentation aus 63 lokalen Features (Koordinaten), die verwendet werden können, um die Handgesten zu erkennen. Dies bietet eine viel detailliertere und spezifischere Beschreibung der Handposition im Vergleich zu den ursprünglichen globalen Deskriptoren.
+
+<img src="resources/example-images/handlandmarks.jpg" alt="Hand-Landmarks-Darstellung" width="600" height="600">
 
 Für die Entwicklung und das Training unseres Modells haben wir zwei Datensätze verwendet:
 
