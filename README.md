@@ -96,11 +96,11 @@ Wir haben uns, anders als im Kapitel `Exposé - Signing Bee` beschrieben, gegen 
    - **`fc1`**: Das erste hidden Layer (`fc1`) ist ein vollverbundenes Layer (`nn.Linear(input_size, hidden_size)`). Es hat 128 Neuronen (`hidden_size`) und ist für die Umwandlung der Eingabefeatures in eine höherdimensionale Repräsentation verantwortlich.
      - **Aktivierungsfunktion**: Nach der Linearen Transformation wird die ReLU-Aktivierungsfunktion (`F.relu`) angewendet, die nicht-lineare Beziehungen in den Daten modellieren kann.
      
-   - **`fc2`**: Das zweite hidden Layer (`fc2`) ist ebenfalls ein vollverbundenes Layer, das die Ausgabe des ersten hideen Layer auf eine weitere höhere Dimension transformiert, wieder mit 128 Neuronen.
+   - **`fc2`**: Das zweite hidden Layer (`fc2`) ist ebenfalls ein vollverbundenes Layer, das die Ausgabe des ersten hidden Layer auf eine weitere höhere Dimension transformiert, wieder mit 128 Neuronen.
      - **Aktivierungsfunktion**: Auch hier wird die ReLU-Aktivierungsfunktion verwendet, um nicht-lineare Beziehungen zu modellieren.
 
 #### 3. **Output Layer:**
-   - **`fc3`**: Das Output Layer (`fc3`) ist ein vollverbundenes Layer, der die Ausgabe des letzten hidden Layer in eine Dimension von `num_classes` transformiert, was der Anzahl der verschiedenen Klassen entspricht, die im Handgestenerkennungssystem unterschieden werden sollen (in diesem Fall 24 Klassen = Buchstaben im Alphabet ohne J und Z).
+   - **`fc3`**: Das Output Layer (`fc3`) ist ein vollverbundenes Layer, das die Ausgabe des letzten hidden Layer in eine Dimension von `num_classes` transformiert, was der Anzahl der verschiedenen Klassen entspricht, die im Handgestenerkennungssystem unterschieden werden sollen (in diesem Fall 24 Klassen = Buchstaben im Alphabet ohne J und Z).
      - **Aktivierungsfunktion**: Im Output Layer wird keine Aktivierungsfunktion angewendet. Stattdessen gibt das Layer Rohwerte oder Logits aus, die später in der Verlustberechnung durch die Softmax-Funktion (implizit in der Crossentropy-Verlustfunktion) in Wahrscheinlichkeiten umgewandelt werden.
 
 #### 4. **Zusammenfassung des Modells:**
@@ -149,7 +149,7 @@ Wie anhand der Werte zu erkennen ist, ist die Rate der True Positives (TP) extre
 <br><br>
 <img src="resources/images/pq.png" alt="Konfusionsmatrix" width="200" height="200">
 
-Das täuscht aber. Sie sehen zwar als Bild anders aus weil die Hand unterschiedlich rotiert ist. Aber die Hand-Landmarks sind relativ zur Hand also unabhängig von der Rotation der Hand im gesamten Bildkontext, d.h. die Gesten sind sich doch recht ähnlich. Nur der Mittelfinger ist beim Q angewinkelt und beim P ist er eher ausgestreckt.
+Das täuscht allerdings, denn obwohl sie aufgrund der Handrotation unterschiedlich aussehen, sind die Hand-Landmarks relativ zur Hand also unabhängig von der Rotation der Hand im gesamten Bildkontext. Das bedeutet, die Gesten sind sich doch recht ähnlich, denn lediglich der Mittelfinger ist beim Q angewinkelt und beim P eher ausgestreckt.
 
 ### ROC_AUC Curve
 
@@ -163,13 +163,13 @@ Zum Vergleich sind hier noch einmal einige Ergebnisse des ersten Modells, welche
 * Recall: **95,31%**
 * F1-Score: **95,28%**
 
-Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebärden haben sie sich jedoch nicht bewährt. Hier wurden viele Buchstaben, wie zuvor bereits erwähnt nur schwer erkannt und bei geringsten Veränderungen der Umgebungsverhältnisse wurde die Erkennung teilweise nahezu unmöglich. Das die Werte dennoch so *gut* ausgefallen sind hängt vermutlich damit zusammen, dass der Testdatensatz beim Sign Language MNIST bei sehr ähnlichen Lichtverhältnissen und Hintergrundbedingungen aufgenommen wurde, wie der Trainingsdatensatz, was dazuführt, das bei der Evaluierung die zuvor genannten Probleme nicht auffallen.
+Diese Werte scheinen auch recht hoch, bei der tatsächlichen Erkennung der Gebärden haben sie sich jedoch nicht bewährt. Hier wurden viele Buchstaben, wie zuvor bereits erwähnt, nur schwer erkannt und bei geringsten Veränderungen der Umgebungsverhältnisse wurde die Erkennung teilweise nahezu unmöglich. Das die Werte dennoch so *gut* ausgefallen sind hängt vermutlich damit zusammen, dass der Testdatensatz beim Sign Language MNIST bei sehr ähnlichen Lichtverhältnissen und Hintergrundbedingungen aufgenommen wurde, wie der Trainingsdatensatz, was dazuführt, dass bei der Evaluierung die zuvor genannten Probleme nicht auffallen.
 
 ### Model Accuracy / Loss Over Epochs
-Im Folgenden sind noch einmal zwei Diagramme zu sehen, die zum einen den Model-Loss und zum anderen die Model-Accuracy über die Trainingsepochenzeigen.
+Im Folgenden sind noch einmal zwei Diagramme zu sehen, die zum einen den Model-Loss und zum anderen die Model-Accuracy über die Trainingsepochen darstellen.
 
 <img src="resources/results/model_accuracy.svg" alt="Model Accuracy Over Epochs" width="600" height="600">
-Bei der Accuracy ist ein schneller Anstieg zu Beginn des Trainings zu erkennen, der sich nach etwa 50 Epochen stabilisiert. Das Modell scheint also schnell zu lernen sowohl auf den Trainingsdaten, als auch den Validierungsdaten, die korrekte Vorhersage zu treffen. Die leichten Schwankungen zeigen keine großen Unterschiede zu den Trainingsdaten, was darauf hindeutet, dass wir kein starkes Overfitting betrieben haben.
+Bei der Accuracy ist ein schneller Anstieg zu Beginn des Trainings zu erkennen, der sich nach etwa 50 Epochen stabilisiert. Das Modell scheint also schnell zu lernen sowohl auf den Trainingsdaten, als auch den Validierungsdaten die korrekte Vorhersage zu treffen. Die leichten Schwankungen zeigen keine großen Unterschiede zu den Trainingsdaten, was darauf hindeutet, dass wir kein starkes Overfitting betrieben haben.
 
 <img src="resources/results/model_loss.svg" alt="Model Loss Over Epochs" width="600" height="600">
 Ebenfalls ist beim Loss ein schneller Abfall des Werts zu erkennen, der sich nach etwa 50 Epochen bei einem konstanten Wert von ungefähr 0.01 stabilisert. Dies deutet auf ein gelunges Training hin, dass dafür gesorgt hat, dass das Modell seine Fehlerrate einigermaßen schnell minimieren und stabilisieren konnte.
