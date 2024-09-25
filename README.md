@@ -1,4 +1,4 @@
-# Signing Bee 🐝
+# ✌️Signing Bee 🐝
 
 ## Getting Started
 
