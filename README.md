@@ -56,7 +56,7 @@ Aufgrund dieser Einschränkungen haben wir uns entschieden, einen neuen Datensat
 
 **Mathematische Erklärung der lokalen Features:**
 
-Landmarks beschreiben markante Punkte an der erkannten Hand in einem Bild, die als Referenzpunkte für die Analyse dienen. Hand-Landmarks sind spezifische Punkte, die typischerweise an den Fingerspitzen, Gelenken und dem Handgelenk liegen und verwendet werden, um die Position und Bewegung der Hand zu analysieren, in unserem Fall zur Gestenerkennung. Für jede Hand werden 21 Hand-Landmarks erkannt. Jeder dieser Landmarks besteht aus 3 Koordinaten (X, Y, Z). Daher können wir die Anzahl der lokalen Features wie folgt berechnen:
+Landmarks beschreiben markante Punkte an der erkannten Hand in einem Bild, die als Referenzpunkte für die Analyse dienen. Hand-Landmarks sind spezifische Punkte, die typischerweise an den Fingerspitzen, Gelenken und dem Handgelenk liegen und verwendet werden, um die Position und Stellung der Hand zu analysieren, in unserem Fall zur Gestenerkennung. Für jede Hand werden 21 Hand-Landmarks erkannt. Jeder dieser Landmarks besteht aus 3 Koordinaten (X, Y, Z). Daher können wir die Anzahl der lokalen Features wie folgt berechnen:
 
 - Anzahl der Hand-Landmarks pro Hand: 21
 - Anzahl der Koordinaten pro Landmark: 3
