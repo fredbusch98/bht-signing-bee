@@ -117,7 +117,7 @@ Wir haben uns, anders als im Kapitel `Exposé - Signing Bee` beschrieben, gegen 
      - Für `fc3`: $(128 * 24) + 24 = 3.104$
      - Insgesamt: $8128 + 16512 + 3104 = 27.844$ Parameter
 
-Zum Vergleich dazu hatte unser vorheriges Modell, das mit dem Sign Language MNIST trainiert wurde insgesamt 423.961 Parameter. Das erklärt auch nochmal, wieso das Training des neuen Modells weitaus schneller ist.
+Zum Vergleich dazu hatte unser vorheriges Modell, ein CNN, das mit dem Sign Language MNIST trainiert wurde insgesamt 423.961 Parameter. Das erklärt auch nochmal, wieso das Training des neuen Modells weitaus schneller ist.
 
 ### Modell Training und Evaluation
 
