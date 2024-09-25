@@ -129,7 +129,7 @@ Zum Vergleich dazu hatte unser vorheriges Modell, ein CNN, das mit dem Sign Lang
 
 ### System Overview
 
-<img src="resources/images/overview.png" alt="Konfusionsmatrix" width="2092" height="502">
+<img src="resources/images/overview.png" alt="Konfusionsmatrix" width="2000" height="250">
 
 ## Ergebnisse
 
@@ -147,7 +147,7 @@ Im folgenden haben wir zwei Diagramme, die die vorangestellten Werte kontextuali
 <img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
 Wie anhand der Werte zu erkennen ist, ist die Rate der True Positives (TP) extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten in Bildform doch deutlich zu unterscheiden scheinen.
 <br><br>
-<img src="resources/results/pq.png" alt="Konfusionsmatrix" width="200" height="200">
+<img src="resources/images/pq.png" alt="Konfusionsmatrix" width="200" height="200">
 
 Das täuscht aber. Sie sehen zwar als Bild anders aus weil die Hand unterschiedlich rotiert ist. Aber die Hand-Landmarks sind relativ zur Hand also unabhängig von der Rotation der Hand im gesamten Bildkontext, d.h. die Gesten sind sich doch recht ähnlich. Nur der Mittelfinger ist beim Q angewinkelt und beim P ist er eher ausgestreckt.
 
