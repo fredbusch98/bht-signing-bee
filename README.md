@@ -145,7 +145,7 @@ Im folgenden haben wir zwei Diagramme, die die vorangestellten Werte kontextuali
 ### Confusion Matrix
 
 <img src="resources/results/confusion_matrix.jpg" alt="Konfusionsmatrix" width="600" height="600">
-Wie anhand der Werte zu erkennen ist, ist die Rate der True Positives (TP) extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten in Bildform doch deutlich zu unterscheiden scheinen.
+Wie anhand der Werte zu erkennen ist, ist die Rate der True Positives (TP) extrem hoch und die theoretische Leistung des Models sehr gut. Die Matrix zeigt allerdings ein paar interessante Fälle auf, die in den Werten nicht zu erkennen sind. Beispielsweise die Fälle in denen das K fälschlicherweise als V (13 Fälle), das M als N und umgekehrt (20), das R als U (33 Fälle), das P als Q (12 Fälle) und das D als U (9 Fälle) klassifiziert wurden, stechen hierbei heraus. Während die Fälle K-V, R-U und D-U auf die hohe Ähnlichkeit der Gesten zurückzuführen ist, ist der Fall P-Q nicht ganz so eindeutig, da sich diese beiden Gesten in Bildform doch deutlich zu unterscheiden scheinen.
 <br><br>
 <img src="resources/images/pq.png" alt="Konfusionsmatrix" width="200" height="200">
 
