@@ -196,7 +196,7 @@ Convolutional Neural Networks from Depth map (University of California, San Dieg
 
 ## Download Links
 
-* [Google Drive](https://drive.google.com/file/d/1Skzo5uSdSAMLlYa-qweol1fzWhmlK_hl/view?usp=drive_link) - Vorverarbeitete Hand Landmark Datenpunkte (Training / Test)
+* Vorverarbeitete Hand Landmark Datenpunkte (Training / Test) - Siehe Google Drive Link in der .txt Datei von der Abgabe
 
 * [ASL (American Sign Language) Alphabet Dataset](https://www.kaggle.com/datasets/debashishsau/aslamerican-sign-language-aplhabet-dataset?select=ASL_Alphabet_Dataset) - Trainingsbilder
 
